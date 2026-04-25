@@ -3,116 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Osama Zain | GOD MODE Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
+<title>Osama Zain | Video Editor & Animator</title>
+<meta name="description" content="Professional Video Editor, Motion Designer & 2D Animator">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
-body{background:#000;color:#fff;overflow-x:hidden;}
-
-/* VIDEO BG */
-#bg-video{
-position:fixed;
-right:0;
-bottom:0;
-min-width:100%;
-min-height:100%;
-z-index:-1;
-object-fit:cover;
-filter:brightness(0.3);
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+font-family:Arial, Helvetica, sans-serif;
 }
-
-/* NAV */
-nav{position:fixed;width:100%;top:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);padding:15px 40px;display:flex;justify-content:space-between;z-index:1000;}
-nav h2{color:#00eaff;}
-nav a{color:#fff;margin-left:20px;text-decoration:none;}
-
-/* HERO */
-.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
-.hero img{width:150px;border-radius:50%;border:3px solid #00eaff;box-shadow:0 0 25px #00eaff;}
-.hero h1{font-size:60px;margin-top:20px;}
-.hero span{color:#00eaff;}
-.hero p{margin-top:10px;color:#ddd;}
-
-/* BUTTON */
-.btns a{padding:12px 25px;margin:10px;border-radius:10px;text-decoration:none;}
-.primary{background:#00eaff;color:#000;}
-.secondary{border:1px solid #00eaff;color:#fff;}
-.btns a:hover{box-shadow:0 0 20px #00eaff;}
-
-/* SECTION */
-section{padding:80px 40px;max-width:1100px;margin:auto;text-align:center;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
-.card{padding:25px;border-radius:15px;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);transition:.4s;}
-.card:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(0,234,255,0.3);} 
-
-/* TESTIMONIAL */
-.testimonial{margin-top:20px;padding:20px;border-radius:10px;background:rgba(255,255,255,0.05);} 
-
-/* FOOTER */
-footer{text-align:center;padding:30px;color:#aaa;}
-
+body{
+background:#050505;
+color:white;
+}
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:25px 8%;
+position:sticky;
+top:0;
+background:#050505e8;
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+.logo{
+font-size:32px;
+font-weight:700;
+color:#00eaff;
+}
+nav a{
+color:white;
+text-decoration:none;
+margin-left:30px;
+font-size:18px;
+transition:.3s;
+}
+nav a:hover{
+color:#00eaff;
+}
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:70px;
+padding:50px 8%;
+flex-wrap:wrap;
+}
+.hero img{
+width:320px;
+height:320px;
+object-fit:cover;
+border-radius:50%;
+border:4px solid #00eaff;
+box-shadow:0 0 35px #00eaff;
+}
+.hero-text h1{
+font-size:58px;
+margin-bottom:15px;
+}
+.hero-text span{
+color:#00eaff;
+}
+.hero-text h3{
+font-size:24px;
+font-weight:400;
+margin-bottom:25px;
+line-height:1.6;
+max-width:600px;
+}
+.btns a{
+display:inline-block;
+padding:14px 28px;
+margin-right:15px;
+margin-top:10px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
+}
+.btn1{
+background:#00eaff;
+color:black;
+}
+.btn2{
+border:2px solid #00eaff;
+color:#00eaff;
+}
+.btns a:hover{
+transform:translateY(-4px);
+}
+section{
+padding:90px 8%;
+}
+.title{
+font-size:42px;
+color:#00eaff;
+margin-bottom:30px;
+text-align:center;
+}
+.about p{
+font-size:19px;
+line-height:1.8;
+max-width:900px;
+margin:auto;
+text-align:center;
+color:#ddd;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:40px;
+}
+.card{
+background:#111;
+padding:30px;
+border-radius:14px;
+transition:.3s;
+border:1px solid #222;
+}
+.card:hover{
+transform:translateY(-8px);
+border-color:#00eaff;
+box-shadow:0 0 20px #00eaff22;
+}
+.card h3{
+color:#00eaff;
+margin-bottom:15px;
+}
+.card p{
+line-height:1.7;
+color:#ddd;
+}
+.exp li{
+margin-bottom:18px;
+font-size:18px;
+color:#ddd;
+}
+.contact{
+text-align:center;
+}
+.contact a{
+display:inline-block;
+margin:12px;
+padding:14px 26px;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+footer{
+padding:25px;
+text-align:center;
+color:#888;
+border-top:1px solid #111;
+}
+@media(max-width:768px){
+.hero-text h1{
+font-size:42px;
+}
+.hero img{
+width:240px;
+height:240px;
+}
+nav{
+display:none;
+}
+}
 </style>
 </head>
-
 <body>
 
-<!-- VIDEO BACKGROUND -->
-<video autoplay muted loop id="bg-video">
-<source src="https://cdn.coverr.co/videos/coverr-working-on-laptop-5173/1080p.mp4" type="video/mp4">
-</video>
-
+<header>
+<div class="logo">ZAIN</div>
 <nav>
-<h2>ZAIN</h2>
-<div>
 <a href="#home">Home</a>
+<a href="#about">About</a>
 <a href="#services">Services</a>
-<a href="#projects">Projects</a>
+<a href="#experience">Experience</a>
 <a href="#contact">Contact</a>
-</div>
 </nav>
+</header>
 
-<div class="hero" id="home">
-<img src="osama.jpg" alt="profile">
+<section class="hero" id="home">
+<img src="osama zain (1).jpg" alt="Osama Zain">
+<div class="hero-text">
 <h1>Hi, I'm <span>Osama Zain</span></h1>
-<p>Media Specialist • Video Editor • Graphic Designer</p>
+<h3>Professional Video Editor, Motion Designer & 2D Animator</h3>
 
 <div class="btns">
-<a href="https://www.fiverr.com/osamazain" target="_blank" class="primary">Hire Me</a>
-<a href="https://wa.me/8801620468661" target="_blank" class="secondary">WhatsApp</a>
+<a class="btn1" href="https://wa.me/8801620468661" target="_blank">Hire Me</a>
+<a class="btn2" href="https://www.fiverr.com/osamazain" target="_blank">Fiverr</a>
 </div>
 </div>
+</section>
+
+<section class="about" id="about">
+<h2 class="title">About Me</h2>
+<p>
+Creative media professional with real broadcast and freelancing experience. Skilled in professional video editing, motion graphics, poster design, news production, and 2D animation. Worked with television media, online clients, and animation teams.
+</p>
+</section>
 
 <section id="services">
-<h2>Services</h2>
+<h2 class="title">My Services</h2>
+
 <div class="grid">
-<div class="card"><h3>Video Editing</h3></div>
-<div class="card"><h3>Motion Graphics</h3></div>
-<div class="card"><h3>Graphic Design</h3></div>
+<div class="card">
+<h3>Video Editing</h3>
+<p>Professional editing for YouTube, TV, corporate, events, reels and commercials.</p>
+</div>
+
+<div class="card">
+<h3>Motion Graphics</h3>
+<p>After Effects animation, intros, lower thirds, logo reveals and promo videos.</p>
+</div>
+
+<div class="card">
+<h3>2D Animation</h3>
+<p>Character animation, explainers and animated scenes using Adobe Animate.</p>
+</div>
+
+<div class="card">
+<h3>Poster Design</h3>
+<p>Creative posters, event banners, social media ads and promotional designs.</p>
+</div>
 </div>
 </section>
 
-<section id="projects">
-<h2>Projects</h2>
-<div class="card"><p>🎬 Cinematic Edit</p><a href="https://www.fiverr.com/osamazain" target="_blank">View</a></div>
-<div class="card"><p>📱 Ad Design</p><a href="https://www.facebook.com/OxZain" target="_blank">View</a></div>
+<section id="experience">
+<h2 class="title">Experience</h2>
+
+<ul class="exp">
+<li>📺 ULAB TV – Video Editor, Program Producer, Motion Graphics, Poster Design, Camera Operator, News HR, Prime News Incharge, News Plus Incharge</li>
+
+<li>🎬 AnimeKothay – 2D Animator & Project Manager</li>
+
+<li>🌍 Fiverr – Completed 12+ international client orders in editing & animation</li>
+
+<li>🏆 Recognized for Best Graphics Design & Awarded Programs</li>
+</ul>
 </section>
 
-<section>
-<h2>Client Reviews</h2>
-<div class="testimonial">⭐ "Amazing editor! Delivered high quality work fast."</div>
-<div class="testimonial">⭐ "Very professional and creative."</div>
-</section>
+<section class="contact" id="contact">
+<h2 class="title">Let's Work Together</h2>
 
-<section id="contact">
-<h2>Contact</h2>
-<p><a href="https://www.fiverr.com/osamazain" target="_blank">Fiverr</a></p>
-<p><a href="https://www.facebook.com/OxZain" target="_blank">Facebook</a></p>
-<p><a href="https://wa.me/8801620468661" target="_blank">WhatsApp</a></p>
+<a class="btn1" href="https://wa.me/8801620468661" target="_blank">WhatsApp</a>
+
+<a class="btn2" href="https://www.facebook.com/OxZain/" target="_blank">Facebook</a>
+
+<a class="btn2" href="https://www.fiverr.com/osamazain" target="_blank">Fiverr</a>
+
 </section>
 
 <footer>
-© 2026 Osama Zain • GOD MODE ACTIVE
+© 2026 Osama Zain | All Rights Reserved
 </footer>
 
 </body>
