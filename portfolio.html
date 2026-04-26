@@ -2,252 +2,262 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Osama Zain | V5.3 Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | Osama Zain</title>
 <link rel="stylesheet" href="style.css">
-
-<style>
-.port-wrap{
-max-width:1450px;
-margin:auto;
-padding:140px 40px 80px;
-}
-
-.port-title{
-font-size:58px;
-font-weight:800;
-text-align:center;
-margin-bottom:10px;
-}
-
-.port-title span{color:#f4c430;}
-
-.port-sub{
-text-align:center;
-color:#999;
-margin-bottom:70px;
-}
-
-.video-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-gap:28px;
-}
-
-.video-card{
-background:#111;
-border:1px solid rgba(255,215,0,.15);
-border-radius:24px;
-overflow:hidden;
-transition:.35s;
-cursor:pointer;
-box-shadow:0 0 35px rgba(255,215,0,.05);
-}
-
-.video-card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 45px rgba(255,215,0,.18);
-}
-
-.thumb{
-height:220px;
-position:relative;
-overflow:hidden;
-}
-
-.thumb img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:.4s;
-}
-
-.video-card:hover img{
-transform:scale(1.08);
-}
-
-.play{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-width:78px;
-height:78px;
-border-radius:50%;
-background:#f4c430;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
-font-weight:900;
-color:#111;
-box-shadow:0 0 35px rgba(255,215,0,.45);
-}
-
-.info{
-padding:24px;
-}
-
-.info h3{
-font-size:25px;
-margin-bottom:8px;
-}
-
-.info p{
-color:#aaa;
-line-height:1.5;
-font-size:15px;
-}
-
-.section-gap{margin-top:90px;}
-
-/* MODAL */
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.88);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:99999;
-padding:30px;
-}
-
-.modal.active{
-display:flex;
-}
-
-.modal-box{
-width:100%;
-max-width:980px;
-position:relative;
-}
-
-.modal iframe{
-width:100%;
-height:560px;
-border:none;
-border-radius:18px;
-box-shadow:0 0 50px rgba(255,215,0,.15);
-}
-
-.close-btn{
-position:absolute;
-right:-10px;
-top:-45px;
-font-size:34px;
-color:#fff;
-cursor:pointer;
-}
-
-@media(max-width:768px){
-.port-title{font-size:40px;}
-.modal iframe{height:260px;}
-}
-</style>
 </head>
-
 <body>
 
+<!-- NAVBAR -->
+<header class="navbar">
+<div class="container nav-wrap">
+
+<a href="index.html" class="logo">OSAMA ZAIN</a>
+
 <nav>
-<div class="logo">OSAMA ZAIN</div>
-<ul>
+<ul class="menu">
 <li><a href="index.html">Home</a></li>
-<li><a href="portfolio.html" class="active">Portfolio</a></li>
-<li><a href="index.html#experience">Experience</a></li>
-<li><a href="index.html#contact">Contact</a></li>
+<li><a href="portfolio.html">Portfolio</a></li>
+<li><a href="experience.html">Experience</a></li>
+<li><a href="contact.html">Contact</a></li>
 </ul>
 </nav>
 
-<div class="port-wrap">
-
-<h1 class="port-title">Popup Video <span>Portfolio</span></h1>
-<p class="port-sub">
-Click any project card to watch instantly inside website.
-</p>
-
-<!-- SECTION -->
-<h2 class="title">Award Winning <span>Projects</span></h2>
-
-<div class="video-grid">
-
-<div class="video-card" onclick="openVideo('https://www.youtube.com/embed/wW-35f6F9Ao')">
-<div class="thumb">
-<img src="images/work1.jpg">
-<div class="play">▶</div>
 </div>
-<div class="info">
+</header>
+
+<!-- HERO -->
+<section class="section">
+<div class="container">
+
+<div class="title-wrap">
+<h2>Full <span>Portfolio</span></h2>
+<p>All categorized works with playable embeds</p>
+</div>
+
+</div>
+</section>
+
+<!-- ULAB TV -->
+<section class="section">
+<div class="container">
+
+<div class="title-wrap">
+<h2>ULAB TV <span>Programs</span></h2>
+</div>
+
+<div class="grid-3">
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/wW-35f6F9Ao" allowfullscreen></iframe>
+</div>
+<div class="card-info">
 <h3>Best Program 2025</h3>
-<p>Producer & Editor | ULAB TV</p>
+<p>Producer + Editor</p>
 </div>
 </div>
 
-<div class="video-card" onclick="openVideo('https://www.youtube.com/embed/m5gN3ZcH_tM')">
-<div class="thumb">
-<img src="images/work2.jpg">
-<div class="play">▶</div>
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/m5gN3ZcH_tM" allowfullscreen></iframe>
 </div>
-<div class="info">
+<div class="card-info">
 <h3>Best Program 2024</h3>
-<p>Producer & Editor | ULAB TV</p>
+<p>Producer + Editor</p>
 </div>
 </div>
 
-<div class="video-card" onclick="openVideo('https://www.youtube.com/embed/CCXp0XkctJk')">
-<div class="thumb">
-<img src="images/work5.jpg">
-<div class="play">▶</div>
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/a0-wR1RdG64" allowfullscreen></iframe>
 </div>
-<div class="info">
-<h3>Digital Story</h3>
-<p>Creative Storytelling Production</p>
-</div>
-</div>
-
-<div class="video-card" onclick="openVideo('https://www.youtube.com/embed/7dzOg4ic2Nw')">
-<div class="thumb">
-<img src="images/work6.jpg">
-<div class="play">▶</div>
-</div>
-<div class="info">
-<h3>News Production</h3>
-<p>Broadcast Editing & Reporting</p>
+<div class="card-info">
+<h3>TV Program</h3>
+<p>ULAB TV Production</p>
 </div>
 </div>
 
 </div>
+</div>
+</section>
 
+<!-- MOTION GRAPHICS -->
+<section class="section">
+<div class="container">
+
+<div class="title-wrap">
+<h2>Motion <span>Graphics</span></h2>
 </div>
 
+<div class="grid-3">
 
-<!-- MODAL -->
-<div class="modal" id="videoModal">
-<div class="modal-box">
-<div class="close-btn" onclick="closeVideo()">✕</div>
-<iframe id="videoFrame" allowfullscreen></iframe>
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1309594364288511/" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Best Graphic Designer</h3>
+<p>Spring 2026 Winner</p>
 </div>
 </div>
 
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1582739459511303/" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Creative Motion</h3>
+<p>Animated Visual Design</p>
+</div>
+</div>
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/852090050594204/" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Promo Motion</h3>
+<p>Commercial Graphics</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- DIGITAL STORY -->
+<section class="section">
+<div class="container">
+
+<div class="title-wrap">
+<h2>Digital <span>Story</span></h2>
+</div>
+
+<div class="grid-3">
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/CCXp0XkctJk" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Story Project</h3>
+<p>Creative Digital Narrative</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- NEWS -->
+<section class="section">
+<div class="container">
+
+<div class="title-wrap">
+<h2>News <span>Production</span></h2>
+</div>
+
+<div class="grid-3">
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/7dzOg4ic2Nw" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>News Report</h3>
+<p>Broadcast Production</p>
+</div>
+</div>
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/a0-wR1RdG64" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Media News</h3>
+<p>Visual Journalism</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ANIMEKOTHA -->
+<section class="section">
+<div class="container">
+
+<div class="title-wrap">
+<h2>Anime<span>Kotha</span></h2>
+</div>
+
+<div class="grid-3">
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1810738146221426/" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Anime Episode</h3>
+<p>Art Direction + Editing</p>
+</div>
+</div>
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/951213687491994/" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Creative Episode</h3>
+<p>Animation Project</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- FIVERR -->
+<section class="section">
+<div class="container">
+
+<div class="title-wrap">
+<h2>Fiverr <span>Gigs</span></h2>
+<p>Freelance services and client works</p>
+</div>
+
+<div class="grid-3">
+
+<div class="card">
+<div class="card-info">
+<h3>Video Editing</h3>
+<p>Professional editing for creators & brands</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-info">
+<h3>Motion Graphics</h3>
+<p>Animated intros, promos & reels</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-info">
+<h3>Poster Design</h3>
+<p>Premium social media posters</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer>
+© 2026 Osama Zain | Portfolio
+</footer>
 
 <script src="script.js"></script>
-
-<script>
-function openVideo(url){
-document.getElementById("videoModal").classList.add("active");
-document.getElementById("videoFrame").src = url + "?autoplay=1";
-}
-
-function closeVideo(){
-document.getElementById("videoModal").classList.remove("active");
-document.getElementById("videoFrame").src = "";
-}
-
-document.getElementById("videoModal").addEventListener("click",function(e){
-if(e.target === this){
-closeVideo();
-}
-});
-</script>
-
 </body>
 </html>
