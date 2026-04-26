@@ -1,201 +1,157 @@
-// ====================================
-// OSAMA ZAIN - MASTER V4 FINAL
-// SCRIPT.JS
-// ====================================
+/* ===============================
+   OSAMA ZAIN - FINAL MASTER JS
+   MAX GOLD PARTICLES + PORTFOLIO FIX
+================================= */
 
-// ---------------------------
-// GOLD CURSOR PARTICLES
-// ---------------------------
-const canvas = document.getElementById("particleCanvas");
-const ctx = canvas.getContext("2d");
+document.addEventListener("DOMContentLoaded", () => {
 
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
+  /* ===============================
+     ACTIVE NAV LINK
+  ================================= */
+  const path = window.location.pathname.toLowerCase();
 
-window.addEventListener("resize", () => {
+  document.querySelectorAll(".nav-link").forEach(link => {
+    const href = link.getAttribute("href").toLowerCase();
+    if (path.includes(href)) {
+      link.classList.add("active");
+    }
+  });
+
+  /* ===============================
+     SCROLL REVEAL
+  ================================= */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+  /* ===============================
+     GOLD PARTICLE CANVAS
+  ================================= */
+  const canvas = document.createElement("canvas");
+  canvas.id = "particle-canvas";
+  canvas.style.position = "fixed";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.pointerEvents = "none";
+  canvas.style.zIndex = "0";
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext("2d");
+
+  let w, h;
+  function resizeCanvas() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-});
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
-let particles = [];
-let mouse = {
+  let mouse = {
     x: w / 2,
     y: h / 2
-};
+  };
 
-document.addEventListener("mousemove", (e) => {
+  window.addEventListener("mousemove", e => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
 
-    for (let i = 0; i < 6; i++) {
-        particles.push(new Particle(mouse.x, mouse.y));
+    // burst particles
+    for (let i = 0; i < 8; i++) {
+      particles.push(new Particle(mouse.x, mouse.y, true));
     }
-});
+  });
 
-document.addEventListener("touchmove", (e) => {
-    mouse.x = e.touches[0].clientX;
-    mouse.y = e.touches[0].clientY;
+  class Particle {
+    constructor(x, y, burst = false) {
+      this.x = x || Math.random() * w;
+      this.y = y || Math.random() * h;
 
-    for (let i = 0; i < 6; i++) {
-        particles.push(new Particle(mouse.x, mouse.y));
-    }
-});
+      this.size = burst ? Math.random() * 4 + 1 : Math.random() * 2 + 1;
 
-class Particle {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
+      this.vx = burst
+        ? (Math.random() - 0.5) * 5
+        : (Math.random() - 0.5) * 0.5;
 
-        this.size = Math.random() * 4 + 1;
+      this.vy = burst
+        ? (Math.random() - 0.5) * 5
+        : (Math.random() - 0.5) * 0.5;
 
-        this.speedX = (Math.random() - 0.5) * 2;
-        this.speedY = (Math.random() - 0.5) * 2;
-
-        this.life = 80;
-        this.opacity = 1;
+      this.alpha = 1;
+      this.life = burst ? 60 : 300;
     }
 
     update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life--;
 
-        this.life--;
-        this.opacity -= 0.012;
-        this.size *= 0.98;
+      if (this.life < 100) {
+        this.alpha = this.life / 100;
+      }
+
+      // pull slightly to mouse
+      let dx = mouse.x - this.x;
+      let dy = mouse.y - this.y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 180) {
+        this.x -= dx * 0.002;
+        this.y -= dy * 0.002;
+      }
     }
 
     draw() {
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(242,201,76,${this.opacity})`;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = "#f2c94c";
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
 
-function animateParticles() {
+      ctx.fillStyle = `rgba(255,215,0,${this.alpha})`;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = "#ffd700";
+      ctx.fill();
+    }
+  }
+
+  const particles = [];
+
+  // base floating particles
+  for (let i = 0; i < 180; i++) {
+    particles.push(new Particle());
+  }
+
+  function animateParticles() {
     ctx.clearRect(0, 0, w, h);
 
-    // Floating ambient stars
-    for (let i = 0; i < 20; i++) {
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(242,201,76,0.08)";
-        ctx.arc(
-            (Math.sin(Date.now() * 0.0002 + i) * 400) + w / 2,
-            (Math.cos(Date.now() * 0.0003 + i) * 300) + h / 2,
-            1.5,
-            0,
-            Math.PI * 2
-        );
-        ctx.fill();
-    }
+    for (let i = particles.length - 1; i >= 0; i--) {
+      particles[i].update();
+      particles[i].draw();
 
-    for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-
-        if (particles[i].life <= 0 || particles[i].size <= 0.3) {
-            particles.splice(i, 1);
-            i--;
-        }
+      if (particles[i].life <= 0) {
+        particles.splice(i, 1);
+        particles.push(new Particle());
+      }
     }
 
     requestAnimationFrame(animateParticles);
-}
+  }
 
-animateParticles();
+  animateParticles();
 
-// ---------------------------
-// HERO PARALLAX PHOTO
-// ---------------------------
-const photo = document.querySelector(".photo-frame");
+  /* ===============================
+     PARALLAX GLOW BG
+  ================================= */
+  window.addEventListener("mousemove", e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 30;
+    const y = (e.clientY / window.innerHeight - 0.5) * 30;
 
-document.addEventListener("mousemove", (e) => {
-    if (!photo) return;
+    document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+  });
 
-    let x = (window.innerWidth / 2 - e.clientX) / 35;
-    let y = (window.innerHeight / 2 - e.clientY) / 35;
-
-    photo.style.transform =
-        `rotateY(${x}deg) rotateX(${y}deg) rotate(6deg)`;
-});
-
-// ---------------------------
-// VIDEO POPUP MODAL
-// ---------------------------
-const modal = document.getElementById("videoModal");
-const frame = document.getElementById("videoFrame");
-
-function openVideo(url) {
-    if (!modal || !frame) return;
-
-    frame.src = url + "?autoplay=1";
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
-}
-
-function closeVideo() {
-    if (!modal || !frame) return;
-
-    frame.src = "";
-    modal.classList.remove("active");
-    document.body.style.overflow = "auto";
-}
-
-window.openVideo = openVideo;
-window.closeVideo = closeVideo;
-
-// close on background click
-if (modal) {
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeVideo();
-    });
-}
-
-// ESC close
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeVideo();
-});
-
-// ---------------------------
-// REVEAL ON SCROLL
-// ---------------------------
-const reveals = document.querySelectorAll(".card, .hero-text, .photo-frame");
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform += " translateY(0)";
-        }
-    });
-}, {
-    threshold: 0.15
-});
-
-reveals.forEach((item) => {
-    item.style.opacity = "0";
-    item.style.transform += " translateY(40px)";
-    item.style.transition = "all .8s ease";
-    observer.observe(item);
-});
-
-// ---------------------------
-// SMOOTH ACTIVE NAV
-// ---------------------------
-const navLinks = document.querySelectorAll("nav a");
-
-navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.forEach(l => l.classList.remove("active"));
-        link.classList.add("active");
-    });
-});
-
-// ---------------------------
-// LOADER OPTIONAL
-// ---------------------------
-window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
 });
