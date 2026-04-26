@@ -3,47 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Osama Zain | Cinematic Portfolio</title>
+<title>Osama Zain | True Premium Portfolio</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav>
-  <div class="logo">OSAMA ZAIN</div>
-  <ul>
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="#works">My Works</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="container nav-wrap">
+    <div class="logo">OSAMA ZAIN</div>
+
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#works">My Works</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+    </ul>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero container" id="home">
 
-  <div class="hero-left reveal">
-    <small>AWARD WINNING CREATIVE VISUAL ARTIST</small>
+  <div class="hero-content reveal">
+
+    <span class="hero-tag">
+      AWARD WINNING CREATIVE PROFESSIONAL
+    </span>
 
     <h1>
-      OSAMA <span>ZAIN</span>
+      CINEMATIC DIGITAL <span>CREATOR</span>
     </h1>
 
     <p>
       Producer, Editor, Motion Graphics Designer,
-      Storyteller & Post Production Artist creating
-      cinematic digital experiences.
+      Storyteller and Post Production Artist building
+      premium visual experiences.
     </p>
 
-    <div class="btns">
-      <a href="#featured" class="btn gold">Best Works</a>
-      <a href="#works" class="btn dark">My Works</a>
-      <a href="portfolio.html" class="btn dark">Portfolio</a>
+    <div class="btn-group">
+      <a href="#awards" class="btn btn-gold">Best Works</a>
+      <a href="#works" class="btn btn-dark">My Works</a>
+      <a href="portfolio.html" class="btn btn-dark">Portfolio</a>
     </div>
+
   </div>
 
-  <div class="hero-image reveal">
-    <div class="frame">
+  <div class="hero-photo reveal">
+    <div class="photo-frame">
       <img src="images/hero.jpg" alt="Osama Zain">
     </div>
   </div>
@@ -51,141 +58,199 @@
 </section>
 
 
+<!-- AWARDS -->
+<section id="awards">
+<div class="container">
 
-<!-- FEATURED BEST 4 -->
-<section id="featured">
-
-<h2 class="title">Award Winning <span>Projects</span></h2>
-<p class="sub">Click any project to play instantly</p>
+<div class="section-head reveal">
+<h2>Best Award <span>Projects</span></h2>
+<p>Embedded ready-to-play featured winning works</p>
+</div>
 
 <div class="grid">
 
+<!-- CARD 1 -->
 <div class="card reveal">
-<img src="images/work1.jpg">
+<div class="card-media">
+<iframe
+src="https://www.youtube.com/embed/wW-35f6F9Ao"
+allowfullscreen></iframe>
+<span class="play-badge">LIVE PLAY</span>
+</div>
 <div class="card-body">
 <h3>Best Program 2025</h3>
 <p>Fall 2025 Award Winning Program</p>
-<a href="https://www.youtube.com/watch?v=wW-35f6F9Ao" target="_blank" class="btn gold">Play</a>
 </div>
 </div>
 
+<!-- CARD 2 -->
 <div class="card reveal">
-<img src="images/work2.jpg">
+<div class="card-media">
+<iframe
+src="https://www.youtube.com/embed/m5gN3ZcH_tM"
+allowfullscreen></iframe>
+<span class="play-badge">LIVE PLAY</span>
+</div>
 <div class="card-body">
 <h3>Best Program 2024</h3>
 <p>Fall 2024 Award Winning Program</p>
-<a href="https://www.youtube.com/watch?v=m5gN3ZcH_tM" target="_blank" class="btn gold">Play</a>
 </div>
 </div>
 
+<!-- CARD 3 -->
 <div class="card reveal">
-<img src="images/work3.jpg">
+<div class="card-media">
+<a href="https://www.facebook.com/reel/1309594364288511" target="_blank">
+<img src="images/work1.jpg">
+</a>
+<span class="play-badge">FB PLAY</span>
+</div>
 <div class="card-body">
 <h3>Best Graphic Designer</h3>
-<p>Spring 2026 Motion Graphics Award</p>
-<a href="https://www.facebook.com/reel/1309594364288511" target="_blank" class="btn gold">Play</a>
+<p>Spring 2026 Award Winning Motion Graphics</p>
 </div>
 </div>
 
+<!-- CARD 4 -->
 <div class="card reveal">
-<img src="images/work4.jpg">
+<div class="card-media">
+<a href="https://www.facebook.com/reel/2322066501633972" target="_blank">
+<img src="images/work2.jpg">
+</a>
+<span class="play-badge">FB PLAY</span>
+</div>
 <div class="card-body">
 <h3>Best Post Production</h3>
-<p>Spring 2026 Award Winning Work</p>
-<a href="https://www.facebook.com/reel/2322066501633972" target="_blank" class="btn gold">Play</a>
+<p>Spring 2026 Best Post Production Artist</p>
 </div>
 </div>
 
 </div>
 
+</div>
 </section>
 
 
 
-<!-- MY WORKS -->
+<!-- WORKS -->
 <section id="works">
+<div class="container">
 
-<h2 class="title">MY <span>WORKS</span></h2>
-<p class="sub">All productions, edits, graphics & creative works</p>
+<div class="section-head reveal">
+<h2>My <span>Works</span></h2>
+<p>All creative productions and media projects</p>
+</div>
+
+<div class="search-box reveal">
+<input
+type="text"
+id="searchWorks"
+placeholder="Search videos, motion graphics, programs...">
+</div>
 
 <div class="grid">
 
+<!-- WORK 1 -->
 <div class="card reveal">
-<img src="images/work5.jpg">
-<div class="card-body">
-<h3>ULAB TV Program</h3>
-<p>Producer & Editor</p>
-<a href="https://www.youtube.com/watch?v=wW-35f6F9Ao" target="_blank" class="btn dark">Watch</a>
+<div class="card-media">
+<iframe
+src="https://www.youtube.com/embed/CCXp0XkctJk"
+allowfullscreen></iframe>
 </div>
-</div>
-
-<div class="card reveal">
-<img src="images/work6.jpg">
 <div class="card-body">
 <h3>Digital Story</h3>
-<p>Creative Storytelling Project</p>
-<a href="https://www.youtube.com/watch?v=CCXp0XkctJk" target="_blank" class="btn dark">Watch</a>
+<p>Creative story driven project</p>
 </div>
 </div>
 
+<!-- WORK 2 -->
 <div class="card reveal">
-<img src="images/work1.jpg">
+<div class="card-media">
+<iframe
+src="https://www.youtube.com/embed/7dzOg4ic2Nw"
+allowfullscreen></iframe>
+</div>
 <div class="card-body">
 <h3>News Production</h3>
-<p>Broadcast Editing & Reporting</p>
-<a href="https://www.youtube.com/watch?v=7dzOg4ic2Nw" target="_blank" class="btn dark">Watch</a>
+<p>Broadcast media production</p>
 </div>
 </div>
 
+<!-- WORK 3 -->
 <div class="card reveal">
-<img src="images/work2.jpg">
-<div class="card-body">
-<h3>Motion Graphics</h3>
-<p>Creative Animation Design</p>
-<a href="https://www.facebook.com/reel/1582739459511303" target="_blank" class="btn dark">Watch</a>
-</div>
-</div>
-
-<div class="card reveal">
+<div class="card-media">
+<a href="https://www.facebook.com/reel/1810738146221426" target="_blank">
 <img src="images/work3.jpg">
+</a>
+</div>
 <div class="card-body">
 <h3>AnimeKothay</h3>
-<p>Art Direction & Editing</p>
-<a href="https://www.facebook.com/reel/1810738146221426" target="_blank" class="btn dark">Watch</a>
+<p>Art direction & editing</p>
 </div>
 </div>
 
+<!-- WORK 4 -->
 <div class="card reveal">
+<div class="card-media">
+<a href="https://www.facebook.com/reel/1582739459511303" target="_blank">
 <img src="images/work4.jpg">
+</a>
+</div>
+<div class="card-body">
+<h3>Motion Graphics</h3>
+<p>Creative animated visual project</p>
+</div>
+</div>
+
+<!-- WORK 5 -->
+<div class="card reveal">
+<div class="card-media">
+<a href="https://www.facebook.com/reel/2295334750936694" target="_blank">
+<img src="images/work5.jpg">
+</a>
+</div>
 <div class="card-body">
 <h3>Assistant Producer</h3>
-<p>Production Management</p>
-<a href="https://www.facebook.com/reel/2295334750936694" target="_blank" class="btn dark">Watch</a>
+<p>Production management work</p>
+</div>
+</div>
+
+<!-- WORK 6 -->
+<div class="card reveal">
+<div class="card-media">
+<iframe
+src="https://www.youtube.com/embed/a0-wR1RdG64"
+allowfullscreen></iframe>
+</div>
+<div class="card-body">
+<h3>News Report 2</h3>
+<p>News production project</p>
 </div>
 </div>
 
 </div>
 
+</div>
 </section>
 
 
 
-<!-- CONTACT -->
-<section id="contact">
-
-<h2 class="title">Let's Build <span>Together</span></h2>
-<p class="sub">Available for collaboration & premium projects</p>
-
-<div style="text-align:center;">
-<a href="mailto:youremail@example.com" class="btn gold">Contact Me</a>
+<!-- CTA -->
+<section class="cta">
+<div class="container reveal">
+<h2>Let's Create Something Premium</h2>
+<p>Available for collaboration, production & visual media projects.</p>
+<a href="mailto:youremail@example.com" class="btn btn-gold">
+Contact Me
+</a>
 </div>
-
 </section>
-
 
 
 <footer>
-© 2026 OSAMA ZAIN • MASTER V7 CINEMATIC GOLD
+<div class="container">
+© 2026 OSAMA ZAIN • MASTER V10 TRUE PREMIUM
+</div>
 </footer>
 
 <script src="script.js"></script>
