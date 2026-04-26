@@ -1,13 +1,20 @@
 /* ==========================================
-MASTER V10.5 FULL SCRIPT.JS
-TRUE PREMIUM + ARROW CONTROLS
+MASTER V10.6 SCRIPT.JS
+Clean Premium Controls
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ===============================
+  /* ELEMENTS */
+  const slider = document.getElementById("worksSlider");
+  const leftBtn = document.getElementById("slideLeft");
+  const rightBtn = document.getElementById("slideRight");
+  const search = document.getElementById("searchWorks");
+  const nav = document.querySelector("nav");
+
+  /* ==================================
      REVEAL ON SCROLL
-  =============================== */
+  ================================== */
   const reveals = document.querySelectorAll(".reveal");
 
   const observer = new IntersectionObserver((entries)=>{
@@ -16,36 +23,24 @@ document.addEventListener("DOMContentLoaded", () => {
         entry.target.classList.add("show");
       }
     });
-  }, {
-    threshold:0.12
-  });
+  },{ threshold:.12 });
 
   reveals.forEach(item => observer.observe(item));
 
 
-  /* ===============================
-     ELEMENTS
-  =============================== */
-  const slider = document.getElementById("worksSlider");
-  const btnLeft = document.getElementById("slideLeft");
-  const btnRight = document.getElementById("slideRight");
-  const search = document.getElementById("searchWorks");
-  const nav = document.querySelector("nav");
+  /* ==================================
+     LEFT RIGHT BUTTONS
+  ================================== */
+  if(slider && leftBtn && rightBtn){
 
-
-  /* ===============================
-     LEFT / RIGHT BUTTON SCROLL
-  =============================== */
-  if(slider && btnLeft && btnRight){
-
-    btnLeft.addEventListener("click", ()=>{
+    leftBtn.addEventListener("click", ()=>{
       slider.scrollBy({
         left:-380,
         behavior:"smooth"
       });
     });
 
-    btnRight.addEventListener("click", ()=>{
+    rightBtn.addEventListener("click", ()=>{
       slider.scrollBy({
         left:380,
         behavior:"smooth"
@@ -55,126 +50,87 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* ===============================
-     MOUSE WHEEL SIDEWAYS
-  =============================== */
+  /* ==================================
+     WHEEL SIDE SCROLL
+  ================================== */
   if(slider){
 
     slider.addEventListener("wheel",(e)=>{
       e.preventDefault();
-      slider.scrollLeft += e.deltaY * 1.2;
+      slider.scrollLeft += e.deltaY * 1.1;
     });
 
   }
 
 
-  /* ===============================
+  /* ==================================
      DRAG SCROLL
-  =============================== */
+  ================================== */
   if(slider){
 
-    let isDown = false;
+    let down = false;
     let startX;
-    let scrollLeft;
+    let scrollStart;
 
     slider.addEventListener("mousedown",(e)=>{
-      isDown = true;
+      down = true;
       slider.style.cursor = "grabbing";
       startX = e.pageX - slider.offsetLeft;
-      scrollLeft = slider.scrollLeft;
+      scrollStart = slider.scrollLeft;
     });
 
     slider.addEventListener("mouseleave",()=>{
-      isDown = false;
+      down = false;
       slider.style.cursor = "grab";
     });
 
     slider.addEventListener("mouseup",()=>{
-      isDown = false;
+      down = false;
       slider.style.cursor = "grab";
     });
 
     slider.addEventListener("mousemove",(e)=>{
-      if(!isDown) return;
+      if(!down) return;
 
       e.preventDefault();
 
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX) * 1.7;
 
-      slider.scrollLeft = scrollLeft - walk;
+      slider.scrollLeft = scrollStart - walk;
     });
 
   }
 
 
-  /* ===============================
+  /* ==================================
      TOUCH SWIPE
-  =============================== */
+  ================================== */
   if(slider){
 
-    let touchStart = 0;
-    let startScroll = 0;
+    let touchX = 0;
+    let touchScroll = 0;
 
     slider.addEventListener("touchstart",(e)=>{
-      touchStart = e.touches[0].clientX;
-      startScroll = slider.scrollLeft;
+      touchX = e.touches[0].clientX;
+      touchScroll = slider.scrollLeft;
     });
 
     slider.addEventListener("touchmove",(e)=>{
       const move = e.touches[0].clientX;
-      const diff = move - touchStart;
-
-      slider.scrollLeft = startScroll - diff;
+      const diff = move - touchX;
+      slider.scrollLeft = touchScroll - diff;
     });
 
   }
 
 
-  /* ===============================
-     AUTO GLIDE
-  =============================== */
-  if(slider){
-
-    let autoMove = true;
-
-    slider.addEventListener("mouseenter",()=>{
-      autoMove = false;
-    });
-
-    slider.addEventListener("mouseleave",()=>{
-      autoMove = true;
-    });
-
-    function animate(){
-
-      if(autoMove){
-
-        slider.scrollLeft += 0.45;
-
-        if(
-          slider.scrollLeft + slider.clientWidth >=
-          slider.scrollWidth - 2
-        ){
-          slider.scrollLeft = 0;
-        }
-
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-  }
-
-
-  /* ===============================
+  /* ==================================
      SEARCH FILTER
-  =============================== */
+  ================================== */
   if(search && slider){
 
-    search.addEventListener("input",()=>{
+    search.addEventListener("input", ()=>{
 
       const val = search.value.toLowerCase();
       const cards = slider.querySelectorAll(".card");
@@ -196,74 +152,72 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  /* ===============================
-     CARD TILT HOVER
-  =============================== */
-  const cards = document.querySelectorAll(".card");
+  /* ==================================
+     AUTO GLIDE
+  ================================== */
+  if(slider){
 
-  cards.forEach(card=>{
+    let auto = true;
 
-    card.addEventListener("mousemove",(e)=>{
-
-      const rect = card.getBoundingClientRect();
-
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const rotateY = ((x / rect.width)-0.5) * 8;
-      const rotateX = ((y / rect.height)-0.5) * -8;
-
-      card.style.transform =
-      `perspective(900px)
-       rotateX(${rotateX}deg)
-       rotateY(${rotateY}deg)
-       translateY(-6px)`;
-
+    slider.addEventListener("mouseenter", ()=>{
+      auto = false;
     });
 
-    card.addEventListener("mouseleave",()=>{
-      card.style.transform = "";
+    slider.addEventListener("mouseleave", ()=>{
+      auto = true;
     });
 
-  });
+    function glide(){
+
+      if(auto){
+
+        slider.scrollLeft += .35;
+
+        if(
+          slider.scrollLeft + slider.clientWidth >=
+          slider.scrollWidth - 2
+        ){
+          slider.scrollLeft = 0;
+        }
+
+      }
+
+      requestAnimationFrame(glide);
+    }
+
+    glide();
+
+  }
 
 
-  /* ===============================
-     NAVBAR EFFECT
-  =============================== */
-  window.addEventListener("scroll",()=>{
+  /* ==================================
+     NAVBAR SCROLL EFFECT
+  ================================== */
+  window.addEventListener("scroll", ()=>{
 
-    if(window.scrollY > 40){
-
+    if(window.scrollY > 30){
       nav.style.background = "rgba(0,0,0,.88)";
-      nav.style.borderBottom =
-      "1px solid rgba(255,210,70,.14)";
-
     }else{
-
-      nav.style.background = "rgba(0,0,0,.75)";
-      nav.style.borderBottom =
-      "1px solid rgba(255,210,70,.08)";
-
+      nav.style.background = "rgba(0,0,0,.78)";
     }
 
   });
 
 
-  /* ===============================
-     CURSOR GOLD GLOW
-  =============================== */
+  /* ==================================
+     GOLD CURSOR GLOW
+  ================================== */
   const glow = document.createElement("div");
 
   glow.style.position = "fixed";
-  glow.style.width = "230px";
-  glow.style.height = "230px";
+  glow.style.width = "220px";
+  glow.style.height = "220px";
   glow.style.borderRadius = "50%";
   glow.style.pointerEvents = "none";
   glow.style.zIndex = "-1";
-  glow.style.filter = "blur(65px)";
+  glow.style.filter = "blur(70px)";
   glow.style.background =
-    "radial-gradient(circle, rgba(255,210,70,.20), transparent 70%)";
+    "radial-gradient(circle, rgba(255,210,70,.18), transparent 70%)";
 
   document.body.appendChild(glow);
 
@@ -271,21 +225,21 @@ document.addEventListener("DOMContentLoaded", () => {
   let gx = 0, gy = 0;
 
   document.addEventListener("mousemove",(e)=>{
-    mx = e.clientX - 115;
-    my = e.clientY - 115;
+    mx = e.clientX - 110;
+    my = e.clientY - 110;
   });
 
-  function moveGlow(){
+  function animateGlow(){
 
-    gx += (mx - gx) * 0.08;
-    gy += (my - gy) * 0.08;
+    gx += (mx - gx) * .08;
+    gy += (my - gy) * .08;
 
     glow.style.left = gx + "px";
     glow.style.top = gy + "px";
 
-    requestAnimationFrame(moveGlow);
+    requestAnimationFrame(animateGlow);
   }
 
-  moveGlow();
+  animateGlow();
 
 });
