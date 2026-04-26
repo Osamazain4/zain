@@ -1,147 +1,154 @@
-/* ==========================================
-MASTER V10.6 SCRIPT.JS
-Clean Premium Controls
-========================================== */
+/* ===============================
+MASTER V10.7 SCRIPT.JS
+Final Real Fix
+=============================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ELEMENTS */
   const slider = document.getElementById("worksSlider");
   const leftBtn = document.getElementById("slideLeft");
   const rightBtn = document.getElementById("slideRight");
-  const search = document.getElementById("searchWorks");
-  const nav = document.querySelector("nav");
+  const search = document.getElementById("searchInput");
 
-  /* ==================================
-     REVEAL ON SCROLL
-  ================================== */
-  const reveals = document.querySelectorAll(".reveal");
+  /* ==========================
+     ARROW BUTTONS
+  ========================== */
+  if (slider && leftBtn && rightBtn) {
 
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add("show");
-      }
-    });
-  },{ threshold:.12 });
-
-  reveals.forEach(item => observer.observe(item));
-
-
-  /* ==================================
-     LEFT RIGHT BUTTONS
-  ================================== */
-  if(slider && leftBtn && rightBtn){
-
-    leftBtn.addEventListener("click", ()=>{
+    leftBtn.addEventListener("click", () => {
       slider.scrollBy({
-        left:-380,
-        behavior:"smooth"
+        left: -420,
+        behavior: "smooth"
       });
     });
 
-    rightBtn.addEventListener("click", ()=>{
+    rightBtn.addEventListener("click", () => {
       slider.scrollBy({
-        left:380,
-        behavior:"smooth"
+        left: 420,
+        behavior: "smooth"
       });
     });
 
   }
 
-
-  /* ==================================
-     WHEEL SIDE SCROLL
-  ================================== */
-  if(slider){
-
-    slider.addEventListener("wheel",(e)=>{
+  /* ==========================
+     MOUSE WHEEL SIDE SCROLL
+  ========================== */
+  if (slider) {
+    slider.addEventListener("wheel", (e) => {
       e.preventDefault();
-      slider.scrollLeft += e.deltaY * 1.1;
+      slider.scrollLeft += e.deltaY * 1.2;
     });
-
   }
 
+  /* ==========================
+     DRAG SLIDER
+  ========================== */
+  if (slider) {
 
-  /* ==================================
-     DRAG SCROLL
-  ================================== */
-  if(slider){
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
 
-    let down = false;
-    let startX;
-    let scrollStart;
-
-    slider.addEventListener("mousedown",(e)=>{
-      down = true;
+    slider.addEventListener("mousedown", (e) => {
+      isDown = true;
       slider.style.cursor = "grabbing";
       startX = e.pageX - slider.offsetLeft;
-      scrollStart = slider.scrollLeft;
+      scrollLeft = slider.scrollLeft;
     });
 
-    slider.addEventListener("mouseleave",()=>{
-      down = false;
+    slider.addEventListener("mouseleave", () => {
+      isDown = false;
       slider.style.cursor = "grab";
     });
 
-    slider.addEventListener("mouseup",()=>{
-      down = false;
+    slider.addEventListener("mouseup", () => {
+      isDown = false;
       slider.style.cursor = "grab";
     });
 
-    slider.addEventListener("mousemove",(e)=>{
-      if(!down) return;
+    slider.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
 
       e.preventDefault();
 
       const x = e.pageX - slider.offsetLeft;
-      const walk = (x - startX) * 1.7;
+      const walk = (x - startX) * 1.8;
 
-      slider.scrollLeft = scrollStart - walk;
+      slider.scrollLeft = scrollLeft - walk;
     });
 
   }
 
-
-  /* ==================================
+  /* ==========================
      TOUCH SWIPE
-  ================================== */
-  if(slider){
+  ========================== */
+  if (slider) {
 
-    let touchX = 0;
-    let touchScroll = 0;
+    let touchStart = 0;
+    let startScroll = 0;
 
-    slider.addEventListener("touchstart",(e)=>{
-      touchX = e.touches[0].clientX;
-      touchScroll = slider.scrollLeft;
+    slider.addEventListener("touchstart", (e) => {
+      touchStart = e.touches[0].clientX;
+      startScroll = slider.scrollLeft;
     });
 
-    slider.addEventListener("touchmove",(e)=>{
+    slider.addEventListener("touchmove", (e) => {
       const move = e.touches[0].clientX;
-      const diff = move - touchX;
-      slider.scrollLeft = touchScroll - diff;
+      const diff = move - touchStart;
+      slider.scrollLeft = startScroll - diff;
     });
 
   }
 
+  /* ==========================
+     AUTO GLIDE
+  ========================== */
+  if (slider) {
 
-  /* ==================================
+    let auto = true;
+
+    slider.addEventListener("mouseenter", () => auto = false);
+    slider.addEventListener("mouseleave", () => auto = true);
+
+    function animate() {
+
+      if (auto) {
+
+        slider.scrollLeft += 0.35;
+
+        if (
+          slider.scrollLeft + slider.clientWidth >=
+          slider.scrollWidth - 2
+        ) {
+          slider.scrollLeft = 0;
+        }
+
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+  /* ==========================
      SEARCH FILTER
-  ================================== */
-  if(search && slider){
+  ========================== */
+  if (search && slider) {
 
-    search.addEventListener("input", ()=>{
+    search.addEventListener("input", () => {
 
       const val = search.value.toLowerCase();
-      const cards = slider.querySelectorAll(".card");
+      const cards = slider.querySelectorAll(".work-card");
 
-      cards.forEach(card=>{
+      cards.forEach(card => {
 
         const text = card.innerText.toLowerCase();
 
-        if(text.includes(val)){
+        if (text.includes(val)) {
           card.style.display = "block";
-        }else{
+        } else {
           card.style.display = "none";
         }
 
@@ -151,62 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
-
-  /* ==================================
-     AUTO GLIDE
-  ================================== */
-  if(slider){
-
-    let auto = true;
-
-    slider.addEventListener("mouseenter", ()=>{
-      auto = false;
-    });
-
-    slider.addEventListener("mouseleave", ()=>{
-      auto = true;
-    });
-
-    function glide(){
-
-      if(auto){
-
-        slider.scrollLeft += .35;
-
-        if(
-          slider.scrollLeft + slider.clientWidth >=
-          slider.scrollWidth - 2
-        ){
-          slider.scrollLeft = 0;
-        }
-
-      }
-
-      requestAnimationFrame(glide);
-    }
-
-    glide();
-
-  }
-
-
-  /* ==================================
-     NAVBAR SCROLL EFFECT
-  ================================== */
-  window.addEventListener("scroll", ()=>{
-
-    if(window.scrollY > 30){
-      nav.style.background = "rgba(0,0,0,.88)";
-    }else{
-      nav.style.background = "rgba(0,0,0,.78)";
-    }
-
-  });
-
-
-  /* ==================================
+  /* ==========================
      GOLD CURSOR GLOW
-  ================================== */
+  ========================== */
   const glow = document.createElement("div");
 
   glow.style.position = "fixed";
@@ -224,22 +178,22 @@ document.addEventListener("DOMContentLoaded", () => {
   let mx = 0, my = 0;
   let gx = 0, gy = 0;
 
-  document.addEventListener("mousemove",(e)=>{
+  document.addEventListener("mousemove", (e) => {
     mx = e.clientX - 110;
     my = e.clientY - 110;
   });
 
-  function animateGlow(){
+  function glowMove() {
 
-    gx += (mx - gx) * .08;
-    gy += (my - gy) * .08;
+    gx += (mx - gx) * 0.08;
+    gy += (my - gy) * 0.08;
 
     glow.style.left = gx + "px";
     glow.style.top = gy + "px";
 
-    requestAnimationFrame(animateGlow);
+    requestAnimationFrame(glowMove);
   }
 
-  animateGlow();
+  glowMove();
 
 });
