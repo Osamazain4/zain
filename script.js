@@ -1,123 +1,139 @@
-/* ==========================================
-V13 MASTER CAREER PORTFOLIO - SCRIPT.JS
-Premium Motion + Reveal + Smooth Effects
-========================================== */
+// ===============================
+// V15 ULTRA PREMIUM SCRIPT
+// ===============================
 
-document.addEventListener("DOMContentLoaded", function () {
+// LOADER
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
 
-  /* ===============================
-     SMOOTH ACTIVE NAV LINK
-  =============================== */
-  const navLinks = document.querySelectorAll(".menu a");
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    loader.style.pointerEvents = "none";
 
-  navLinks.forEach(link => {
-    link.addEventListener("mouseenter", () => {
-      link.style.transform = "translateY(-2px)";
-    });
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 700);
 
-    link.addEventListener("mouseleave", () => {
-      link.style.transform = "translateY(0px)";
-    });
+  }, 1400);
+});
+
+// MUSIC
+const music = document.getElementById("introMusic");
+const musicBtn = document.getElementById("musicToggle");
+
+let playing = false;
+
+function startMusic() {
+  if (!music) return;
+
+  music.volume = 0.35;
+
+  music.play().then(() => {
+    playing = true;
+    if (musicBtn) musicBtn.innerHTML = "🔊";
+  }).catch(() => {
+    playing = false;
+    if (musicBtn) musicBtn.innerHTML = "🔇";
   });
+}
 
-  /* ===============================
-     REVEAL ANIMATION ON SCROLL
-  =============================== */
-  const revealItems = document.querySelectorAll(
-    ".hero-text,.hero-image,.card,.title-wrap,.stat-box,.center-btn"
-  );
+// first interaction autoplay safe
+document.addEventListener("click", () => {
+  if (!playing) startMusic();
+}, { once:true });
 
-  revealItems.forEach(el => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(45px)";
-    el.style.transition = "all .9s ease";
+if (musicBtn) {
+  musicBtn.addEventListener("click", () => {
+    if (!music) return;
+
+    if (playing) {
+      music.pause();
+      playing = false;
+      musicBtn.innerHTML = "🔇";
+    } else {
+      startMusic();
+    }
   });
+}
 
-  function revealOnScroll() {
-    revealItems.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      const trigger = window.innerHeight - 80;
+// WORK SLIDER
+function slideLeft() {
+  const slider = document.getElementById("workSlider");
+  if (slider) slider.scrollBy({
+    left: -450,
+    behavior: "smooth"
+  });
+}
 
-      if (top < trigger) {
-        el.style.opacity = "1";
-        el.style.transform = "translateY(0)";
-      }
+function slideRight() {
+  const slider = document.getElementById("workSlider");
+  if (slider) slider.scrollBy({
+    left: 450,
+    behavior: "smooth"
+  });
+}
+
+// AUTO SLIDE
+setInterval(() => {
+  const slider = document.getElementById("workSlider");
+
+  if (!slider) return;
+
+  const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+  if (slider.scrollLeft >= maxScroll - 10) {
+    slider.scrollTo({
+      left: 0,
+      behavior: "smooth"
+    });
+  } else {
+    slider.scrollBy({
+      left: 450,
+      behavior: "smooth"
     });
   }
 
-  revealOnScroll();
-  window.addEventListener("scroll", revealOnScroll);
+}, 5000);
 
-  /* ===============================
-     GOLD CURSOR GLOW
-  =============================== */
-  const glow = document.createElement("div");
+// CURSOR GLOW
+const glow = document.createElement("div");
+glow.id = "cursorGlow";
 
-  glow.style.position = "fixed";
-  glow.style.width = "220px";
-  glow.style.height = "220px";
-  glow.style.borderRadius = "50%";
-  glow.style.pointerEvents = "none";
-  glow.style.zIndex = "-1";
-  glow.style.filter = "blur(70px)";
-  glow.style.background =
-    "radial-gradient(circle, rgba(255,210,70,.18), transparent 70%)";
+glow.style.position = "fixed";
+glow.style.width = "18px";
+glow.style.height = "18px";
+glow.style.borderRadius = "50%";
+glow.style.background = "rgba(255,215,0,.8)";
+glow.style.boxShadow = "0 0 20px rgba(255,215,0,.8)";
+glow.style.pointerEvents = "none";
+glow.style.zIndex = "99999";
+glow.style.transform = "translate(-50%, -50%)";
+document.body.appendChild(glow);
 
-  document.body.appendChild(glow);
+document.addEventListener("mousemove", (e) => {
+  glow.style.left = e.clientX + "px";
+  glow.style.top = e.clientY + "px";
+});
 
-  let mouseX = 0;
-  let mouseY = 0;
-  let glowX = 0;
-  let glowY = 0;
+// FADE IN ON SCROLL
+const observer = new IntersectionObserver((entries) => {
 
-  document.addEventListener("mousemove", function (e) {
-    mouseX = e.clientX - 110;
-    mouseY = e.clientY - 110;
-  });
+  entries.forEach(entry => {
 
-  function animateGlow() {
-    glowX += (mouseX - glowX) * 0.08;
-    glowY += (mouseY - glowY) * 0.08;
-
-    glow.style.left = glowX + "px";
-    glow.style.top = glowY + "px";
-
-    requestAnimationFrame(animateGlow);
-  }
-
-  animateGlow();
-
-  /* ===============================
-     AUTO HOVER LIFT FOR BUTTONS
-  =============================== */
-  const buttons = document.querySelectorAll(".btn");
-
-  buttons.forEach(btn => {
-    btn.addEventListener("mouseenter", () => {
-      btn.style.transform = "translateY(-4px) scale(1.02)";
-    });
-
-    btn.addEventListener("mouseleave", () => {
-      btn.style.transform = "translateY(0px) scale(1)";
-    });
-  });
-
-  /* ===============================
-     HERO IMAGE FLOAT EFFECT
-  =============================== */
-  const heroImg = document.querySelector(".hero-image img");
-
-  if (heroImg) {
-    let pos = 0;
-
-    function floatImage() {
-      pos += 0.02;
-      heroImg.style.transform =
-        "translateY(" + Math.sin(pos) * 8 + "px)";
-      requestAnimationFrame(floatImage);
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = "1";
+      entry.target.style.transform = "translateY(0)";
     }
 
-    floatImage();
-  }
+  });
 
+}, {
+  threshold: 0.15
+});
+
+document.querySelectorAll(".section, .card").forEach(el => {
+  el.style.opacity = "0";
+  el.style.transform = "translateY(40px)";
+  el.style.transition = "all .8s ease";
+  observer.observe(el);
 });
