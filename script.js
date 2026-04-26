@@ -1,7 +1,7 @@
-/* ===============================
-MASTER V10.4 TRUE PREMIUM
-HORIZONTAL MY WORKS
-=============================== */
+/* ==========================================
+MASTER V10.5 FULL SCRIPT.JS
+TRUE PREMIUM + ARROW CONTROLS
+========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -10,75 +10,121 @@ document.addEventListener("DOMContentLoaded", () => {
   =============================== */
   const reveals = document.querySelectorAll(".reveal");
 
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
       if(entry.isIntersecting){
         entry.target.classList.add("show");
       }
     });
   }, {
-    threshold: 0.12
+    threshold:0.12
   });
 
-  reveals.forEach(item => revealObserver.observe(item));
+  reveals.forEach(item => observer.observe(item));
 
 
   /* ===============================
-     HORIZONTAL SCROLL SYSTEM
+     ELEMENTS
   =============================== */
-  const slider = document.querySelector(".horizontal-row");
+  const slider = document.getElementById("worksSlider");
+  const btnLeft = document.getElementById("slideLeft");
+  const btnRight = document.getElementById("slideRight");
+  const search = document.getElementById("searchWorks");
+  const nav = document.querySelector("nav");
 
+
+  /* ===============================
+     LEFT / RIGHT BUTTON SCROLL
+  =============================== */
+  if(slider && btnLeft && btnRight){
+
+    btnLeft.addEventListener("click", ()=>{
+      slider.scrollBy({
+        left:-380,
+        behavior:"smooth"
+      });
+    });
+
+    btnRight.addEventListener("click", ()=>{
+      slider.scrollBy({
+        left:380,
+        behavior:"smooth"
+      });
+    });
+
+  }
+
+
+  /* ===============================
+     MOUSE WHEEL SIDEWAYS
+  =============================== */
   if(slider){
 
-    /* mouse wheel => sideways */
-    slider.addEventListener("wheel", (e) => {
+    slider.addEventListener("wheel",(e)=>{
       e.preventDefault();
       slider.scrollLeft += e.deltaY * 1.2;
     });
 
-    /* drag scroll */
+  }
+
+
+  /* ===============================
+     DRAG SCROLL
+  =============================== */
+  if(slider){
+
     let isDown = false;
     let startX;
     let scrollLeft;
 
-    slider.addEventListener("mousedown", (e)=>{
+    slider.addEventListener("mousedown",(e)=>{
       isDown = true;
-      slider.classList.add("active");
+      slider.style.cursor = "grabbing";
       startX = e.pageX - slider.offsetLeft;
       scrollLeft = slider.scrollLeft;
     });
 
-    slider.addEventListener("mouseleave", ()=>{
+    slider.addEventListener("mouseleave",()=>{
       isDown = false;
-      slider.classList.remove("active");
+      slider.style.cursor = "grab";
     });
 
-    slider.addEventListener("mouseup", ()=>{
+    slider.addEventListener("mouseup",()=>{
       isDown = false;
-      slider.classList.remove("active");
+      slider.style.cursor = "grab";
     });
 
-    slider.addEventListener("mousemove", (e)=>{
+    slider.addEventListener("mousemove",(e)=>{
       if(!isDown) return;
+
       e.preventDefault();
 
       const x = e.pageX - slider.offsetLeft;
       const walk = (x - startX) * 1.7;
+
       slider.scrollLeft = scrollLeft - walk;
     });
 
-    /* touch support */
-    let startTouchX = 0;
+  }
+
+
+  /* ===============================
+     TOUCH SWIPE
+  =============================== */
+  if(slider){
+
+    let touchStart = 0;
     let startScroll = 0;
 
-    slider.addEventListener("touchstart", (e)=>{
-      startTouchX = e.touches[0].clientX;
+    slider.addEventListener("touchstart",(e)=>{
+      touchStart = e.touches[0].clientX;
       startScroll = slider.scrollLeft;
     });
 
-    slider.addEventListener("touchmove", (e)=>{
-      const moveX = e.touches[0].clientX;
-      const diff = moveX - startTouchX;
+    slider.addEventListener("touchmove",(e)=>{
+      const move = e.touches[0].clientX;
+      const diff = move - touchStart;
+
       slider.scrollLeft = startScroll - diff;
     });
 
@@ -92,12 +138,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let autoMove = true;
 
-    slider.addEventListener("mouseenter", ()=> autoMove = false);
-    slider.addEventListener("mouseleave", ()=> autoMove = true);
-    slider.addEventListener("touchstart", ()=> autoMove = false);
+    slider.addEventListener("mouseenter",()=>{
+      autoMove = false;
+    });
 
-    function autoScroll(){
+    slider.addEventListener("mouseleave",()=>{
+      autoMove = true;
+    });
+
+    function animate(){
+
       if(autoMove){
+
         slider.scrollLeft += 0.45;
 
         if(
@@ -106,23 +158,23 @@ document.addEventListener("DOMContentLoaded", () => {
         ){
           slider.scrollLeft = 0;
         }
+
       }
 
-      requestAnimationFrame(autoScroll);
+      requestAnimationFrame(animate);
     }
 
-    autoScroll();
+    animate();
+
   }
 
 
   /* ===============================
      SEARCH FILTER
   =============================== */
-  const search = document.getElementById("searchWorks");
-
   if(search && slider){
 
-    search.addEventListener("input", ()=>{
+    search.addEventListener("input",()=>{
 
       const val = search.value.toLowerCase();
       const cards = slider.querySelectorAll(".card");
@@ -145,21 +197,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* ===============================
-     PREMIUM CARD TILT
+     CARD TILT HOVER
   =============================== */
   const cards = document.querySelectorAll(".card");
 
   cards.forEach(card=>{
 
-    card.addEventListener("mousemove", (e)=>{
+    card.addEventListener("mousemove",(e)=>{
 
       const rect = card.getBoundingClientRect();
 
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      const rotateY = ((x / rect.width) - 0.5) * 8;
-      const rotateX = ((y / rect.height) - 0.5) * -8;
+      const rotateY = ((x / rect.width)-0.5) * 8;
+      const rotateX = ((y / rect.height)-0.5) * -8;
 
       card.style.transform =
       `perspective(900px)
@@ -169,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    card.addEventListener("mouseleave", ()=>{
+    card.addEventListener("mouseleave",()=>{
       card.style.transform = "";
     });
 
@@ -177,60 +229,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* ===============================
-     NAVBAR SCROLL EFFECT
+     NAVBAR EFFECT
   =============================== */
-  const nav = document.querySelector("nav");
-
-  window.addEventListener("scroll", ()=>{
+  window.addEventListener("scroll",()=>{
 
     if(window.scrollY > 40){
+
       nav.style.background = "rgba(0,0,0,.88)";
       nav.style.borderBottom =
-      "1px solid rgba(255,196,0,.16)";
+      "1px solid rgba(255,210,70,.14)";
+
     }else{
-      nav.style.background = "rgba(0,0,0,.72)";
+
+      nav.style.background = "rgba(0,0,0,.75)";
       nav.style.borderBottom =
-      "1px solid rgba(255,196,0,.12)";
+      "1px solid rgba(255,210,70,.08)";
+
     }
 
   });
 
 
   /* ===============================
-     MOUSE GOLD GLOW
+     CURSOR GOLD GLOW
   =============================== */
   const glow = document.createElement("div");
 
   glow.style.position = "fixed";
-  glow.style.width = "240px";
-  glow.style.height = "240px";
+  glow.style.width = "230px";
+  glow.style.height = "230px";
   glow.style.borderRadius = "50%";
   glow.style.pointerEvents = "none";
   glow.style.zIndex = "-1";
   glow.style.filter = "blur(65px)";
   glow.style.background =
-    "radial-gradient(circle, rgba(255,196,0,.22), transparent 70%)";
+    "radial-gradient(circle, rgba(255,210,70,.20), transparent 70%)";
 
   document.body.appendChild(glow);
 
   let mx = 0, my = 0;
   let gx = 0, gy = 0;
 
-  document.addEventListener("mousemove", (e)=>{
-    mx = e.clientX - 120;
-    my = e.clientY - 120;
+  document.addEventListener("mousemove",(e)=>{
+    mx = e.clientX - 115;
+    my = e.clientY - 115;
   });
 
-  function animateGlow(){
+  function moveGlow(){
+
     gx += (mx - gx) * 0.08;
     gy += (my - gy) * 0.08;
 
     glow.style.left = gx + "px";
     glow.style.top = gy + "px";
 
-    requestAnimationFrame(animateGlow);
+    requestAnimationFrame(moveGlow);
   }
 
-  animateGlow();
+  moveGlow();
 
 });
