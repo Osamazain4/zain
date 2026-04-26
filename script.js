@@ -1,157 +1,184 @@
 /* ===============================
-   OSAMA ZAIN - FINAL MASTER JS
-   MAX GOLD PARTICLES + PORTFOLIO FIX
+   OSAMA ZAIN MASTER V5 SCRIPT.JS
+   CURSOR REACTIVE GOLD
 ================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ===============================
-     ACTIVE NAV LINK
-  ================================= */
-  const path = window.location.pathname.toLowerCase();
+  /* -------------------------------
+     CREATE CURSOR GLOW
+  --------------------------------*/
+  const glow = document.createElement("div");
+  glow.id = "cursorGlow";
+  document.body.appendChild(glow);
 
-  document.querySelectorAll(".nav-link").forEach(link => {
-    const href = link.getAttribute("href").toLowerCase();
-    if (path.includes(href)) {
-      link.classList.add("active");
-    }
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let glowX = mouseX;
+  let glowY = mouseY;
+
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
   });
 
-  /* ===============================
-     SCROLL REVEAL
-  ================================= */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  }, { threshold: 0.15 });
+  function animateGlow() {
+    glowX += (mouseX - glowX) * 0.12;
+    glowY += (mouseY - glowY) * 0.12;
 
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    glow.style.left = glowX + "px";
+    glow.style.top = glowY + "px";
 
-  /* ===============================
-     GOLD PARTICLE CANVAS
-  ================================= */
+    requestAnimationFrame(animateGlow);
+  }
+
+  animateGlow();
+
+  /* -------------------------------
+     DUST CANVAS
+  --------------------------------*/
   const canvas = document.createElement("canvas");
-  canvas.id = "particle-canvas";
-  canvas.style.position = "fixed";
-  canvas.style.top = "0";
-  canvas.style.left = "0";
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
-  canvas.style.pointerEvents = "none";
-  canvas.style.zIndex = "0";
+  canvas.id = "dustCanvas";
   document.body.appendChild(canvas);
 
   const ctx = canvas.getContext("2d");
 
-  let w, h;
-  function resizeCanvas() {
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", () => {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
-
-  let mouse = {
-    x: w / 2,
-    y: h / 2
-  };
-
-  window.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-
-    // burst particles
-    for (let i = 0; i < 8; i++) {
-      particles.push(new Particle(mouse.x, mouse.y, true));
-    }
   });
 
-  class Particle {
-    constructor(x, y, burst = false) {
-      this.x = x || Math.random() * w;
-      this.y = y || Math.random() * h;
+  class Dust {
+    constructor() {
+      this.reset();
+    }
 
-      this.size = burst ? Math.random() * 4 + 1 : Math.random() * 2 + 1;
-
-      this.vx = burst
-        ? (Math.random() - 0.5) * 5
-        : (Math.random() - 0.5) * 0.5;
-
-      this.vy = burst
-        ? (Math.random() - 0.5) * 5
-        : (Math.random() - 0.5) * 0.5;
-
-      this.alpha = 1;
-      this.life = burst ? 60 : 300;
+    reset() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.15;
+      this.speedY = Math.random() * -0.2 - 0.05;
+      this.alpha = Math.random() * 0.4 + 0.05;
     }
 
     update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.life--;
+      this.x += this.speedX;
+      this.y += this.speedY;
 
-      if (this.life < 100) {
-        this.alpha = this.life / 100;
+      const dx = this.x - mouseX;
+      const dy = this.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 140) {
+        this.x += dx * 0.02;
+        this.y += dy * 0.02;
       }
 
-      // pull slightly to mouse
-      let dx = mouse.x - this.x;
-      let dy = mouse.y - this.y;
-      let dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < 180) {
-        this.x -= dx * 0.002;
-        this.y -= dy * 0.002;
+      if (this.y < -10 || this.x < -20 || this.x > w + 20) {
+        this.reset();
+        this.y = h + 10;
       }
     }
 
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-
-      ctx.fillStyle = `rgba(255,215,0,${this.alpha})`;
-      ctx.shadowBlur = 20;
-      ctx.shadowColor = "#ffd700";
+      ctx.fillStyle = `rgba(255,215,120,${this.alpha})`;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = "rgba(255,215,120,.4)";
       ctx.fill();
     }
   }
 
-  const particles = [];
-
-  // base floating particles
-  for (let i = 0; i < 180; i++) {
-    particles.push(new Particle());
+  const dusts = [];
+  for (let i = 0; i < 35; i++) {
+    dusts.push(new Dust());
   }
 
-  function animateParticles() {
+  function animateDust() {
     ctx.clearRect(0, 0, w, h);
 
-    for (let i = particles.length - 1; i >= 0; i--) {
-      particles[i].update();
-      particles[i].draw();
+    dusts.forEach(d => {
+      d.update();
+      d.draw();
+    });
 
-      if (particles[i].life <= 0) {
-        particles.splice(i, 1);
-        particles.push(new Particle());
-      }
-    }
-
-    requestAnimationFrame(animateParticles);
+    requestAnimationFrame(animateDust);
   }
 
-  animateParticles();
+  animateDust();
 
-  /* ===============================
-     PARALLAX GLOW BG
-  ================================= */
-  window.addEventListener("mousemove", e => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 30;
-    const y = (e.clientY / window.innerHeight - 0.5) * 30;
+  /* -------------------------------
+     HERO IMAGE TILT
+  --------------------------------*/
+  const frame = document.querySelector(".frame");
 
-    document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+  if (frame) {
+    document.addEventListener("mousemove", (e) => {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      const rotateY = (e.clientX - centerX) / 45;
+      const rotateX = (centerY - e.clientY) / 45;
+
+      frame.style.transform =
+        `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    document.addEventListener("mouseleave", () => {
+      frame.style.transform =
+        `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    });
+  }
+
+  /* -------------------------------
+     REVEAL ON SCROLL
+  --------------------------------*/
+  const reveals = document.querySelectorAll(".reveal");
+
+  function revealScroll() {
+    const trigger = window.innerHeight * 0.88;
+
+    reveals.forEach(item => {
+      const top = item.getBoundingClientRect().top;
+
+      if (top < trigger) {
+        item.classList.add("show");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", revealScroll);
+  revealScroll();
+
+  /* -------------------------------
+     CARD HOVER LIFT
+  --------------------------------*/
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const rotateY = ((x / rect.width) - 0.5) * 8;
+      const rotateX = ((y / rect.height) - 0.5) * -8;
+
+      card.style.transform =
+        `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "translateY(0)";
+    });
+
   });
 
 });
