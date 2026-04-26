@@ -1,219 +1,201 @@
-/* ===============================
-   OSAMA ZAIN - MASTER V3 SCRIPT
-   Premium Animation Engine
-================================= */
+// ====================================
+// OSAMA ZAIN - MASTER V4 FINAL
+// SCRIPT.JS
+// ====================================
 
-document.addEventListener("DOMContentLoaded", () => {
+// ---------------------------
+// GOLD CURSOR PARTICLES
+// ---------------------------
+const canvas = document.getElementById("particleCanvas");
+const ctx = canvas.getContext("2d");
 
-  /* ===============================
-     CURSOR GLOW
-  =============================== */
-  const glow = document.createElement("div");
-  glow.className = "cursor-glow";
-  document.body.appendChild(glow);
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
 
-  document.addEventListener("mousemove", (e) => {
-    glow.style.left = e.clientX + "px";
-    glow.style.top = e.clientY + "px";
-  });
-
-
-  /* ===============================
-     PARTICLE BACKGROUND
-  =============================== */
-  const canvas = document.createElement("canvas");
-  canvas.id = "particles";
-  document.body.prepend(canvas);
-
-  const ctx = canvas.getContext("2d");
-
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
-
-  const mouse = { x: w / 2, y: h / 2 };
-
-  window.addEventListener("resize", () => {
+window.addEventListener("resize", () => {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-  });
+});
 
-  document.addEventListener("mousemove", e => {
+let particles = [];
+let mouse = {
+    x: w / 2,
+    y: h / 2
+};
+
+document.addEventListener("mousemove", (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-  });
 
-  const particles = [];
+    for (let i = 0; i < 6; i++) {
+        particles.push(new Particle(mouse.x, mouse.y));
+    }
+});
 
-  for (let i = 0; i < 65; i++) {
-    particles.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 2 + 1,
-      vx: (Math.random() - .5) * .4,
-      vy: (Math.random() - .5) * .4
-    });
-  }
+document.addEventListener("touchmove", (e) => {
+    mouse.x = e.touches[0].clientX;
+    mouse.y = e.touches[0].clientY;
 
-  function drawParticles() {
+    for (let i = 0; i < 6; i++) {
+        particles.push(new Particle(mouse.x, mouse.y));
+    }
+});
+
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+
+        this.size = Math.random() * 4 + 1;
+
+        this.speedX = (Math.random() - 0.5) * 2;
+        this.speedY = (Math.random() - 0.5) * 2;
+
+        this.life = 80;
+        this.opacity = 1;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        this.life--;
+        this.opacity -= 0.012;
+        this.size *= 0.98;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(242,201,76,${this.opacity})`;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = "#f2c94c";
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function animateParticles() {
     ctx.clearRect(0, 0, w, h);
 
-    particles.forEach(p => {
-
-      const dx = mouse.x - p.x;
-      const dy = mouse.y - p.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < 140) {
-        p.x -= dx * 0.002;
-        p.y -= dy * 0.002;
-      }
-
-      p.x += p.vx;
-      p.y += p.vy;
-
-      if (p.x < 0 || p.x > w) p.vx *= -1;
-      if (p.y < 0 || p.y > h) p.vy *= -1;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(212,175,55,.85)";
-      ctx.fill();
-    });
-
-    requestAnimationFrame(drawParticles);
-  }
-
-  drawParticles();
-
-
-  /* ===============================
-     HERO 3D PARALLAX
-  =============================== */
-  const heroImg = document.querySelector(".photo-wrap");
-
-  if (heroImg) {
-    document.addEventListener("mousemove", (e) => {
-      const x = (window.innerWidth / 2 - e.clientX) / 28;
-      const y = (window.innerHeight / 2 - e.clientY) / 28;
-
-      heroImg.style.transform =
-        `rotateY(${x}deg) rotateX(${-y}deg) translateZ(10px)`;
-    });
-
-    document.addEventListener("mouseleave", () => {
-      heroImg.style.transform = "rotateY(0deg) rotateX(0deg)";
-    });
-  }
-
-
-  /* ===============================
-     REVEAL ON SCROLL
-  =============================== */
-  const reveals = document.querySelectorAll(".reveal");
-
-  function revealNow() {
-    const trigger = window.innerHeight - 80;
-
-    reveals.forEach(item => {
-      const top = item.getBoundingClientRect().top;
-
-      if (top < trigger) {
-        item.classList.add("show");
-      }
-    });
-  }
-
-  window.addEventListener("scroll", revealNow);
-  revealNow();
-
-
-  /* ===============================
-     COUNTER ANIMATION
-  =============================== */
-  const counters = document.querySelectorAll(".count");
-
-  counters.forEach(counter => {
-    const target = +counter.dataset.target;
-
-    let started = false;
-
-    function runCounter() {
-      if (started) return;
-
-      const top = counter.getBoundingClientRect().top;
-
-      if (top < window.innerHeight - 60) {
-        started = true;
-
-        let count = 0;
-        const speed = target / 80;
-
-        const update = () => {
-          count += speed;
-
-          if (count < target) {
-            counter.innerText = Math.floor(count);
-            requestAnimationFrame(update);
-          } else {
-            counter.innerText = target + "+";
-          }
-        };
-
-        update();
-      }
+    // Floating ambient stars
+    for (let i = 0; i < 20; i++) {
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(242,201,76,0.08)";
+        ctx.arc(
+            (Math.sin(Date.now() * 0.0002 + i) * 400) + w / 2,
+            (Math.cos(Date.now() * 0.0003 + i) * 300) + h / 2,
+            1.5,
+            0,
+            Math.PI * 2
+        );
+        ctx.fill();
     }
 
-    window.addEventListener("scroll", runCounter);
-    runCounter();
-  });
+    for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
 
-
-  /* ===============================
-     NAVBAR SHRINK
-  =============================== */
-  const header = document.querySelector("header");
-
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 40) {
-      header.style.padding = "0";
-      header.style.background = "rgba(0,0,0,.75)";
-    } else {
-      header.style.background = "rgba(0,0,0,.55)";
+        if (particles[i].life <= 0 || particles[i].size <= 0.3) {
+            particles.splice(i, 1);
+            i--;
+        }
     }
-  });
 
+    requestAnimationFrame(animateParticles);
+}
 
-  /* ===============================
-     SMOOTH HOVER CARD TILT
-  =============================== */
-  const cards = document.querySelectorAll(".card");
+animateParticles();
 
-  cards.forEach(card => {
+// ---------------------------
+// HERO PARALLAX PHOTO
+// ---------------------------
+const photo = document.querySelector(".photo-frame");
 
-    card.addEventListener("mousemove", e => {
-      const rect = card.getBoundingClientRect();
+document.addEventListener("mousemove", (e) => {
+    if (!photo) return;
 
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    let x = (window.innerWidth / 2 - e.clientX) / 35;
+    let y = (window.innerHeight / 2 - e.clientY) / 35;
 
-      const rx = -(y - rect.height / 2) / 18;
-      const ry = (x - rect.width / 2) / 18;
+    photo.style.transform =
+        `rotateY(${x}deg) rotateX(${y}deg) rotate(6deg)`;
+});
 
-      card.style.transform =
-        `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-8px)`;
+// ---------------------------
+// VIDEO POPUP MODAL
+// ---------------------------
+const modal = document.getElementById("videoModal");
+const frame = document.getElementById("videoFrame");
+
+function openVideo(url) {
+    if (!modal || !frame) return;
+
+    frame.src = url + "?autoplay=1";
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+function closeVideo() {
+    if (!modal || !frame) return;
+
+    frame.src = "";
+    modal.classList.remove("active");
+    document.body.style.overflow = "auto";
+}
+
+window.openVideo = openVideo;
+window.closeVideo = closeVideo;
+
+// close on background click
+if (modal) {
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeVideo();
     });
+}
 
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "rotateX(0) rotateY(0)";
+// ESC close
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeVideo();
+});
+
+// ---------------------------
+// REVEAL ON SCROLL
+// ---------------------------
+const reveals = document.querySelectorAll(".card, .hero-text, .photo-frame");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform += " translateY(0)";
+        }
     });
+}, {
+    threshold: 0.15
+});
 
-  });
+reveals.forEach((item) => {
+    item.style.opacity = "0";
+    item.style.transform += " translateY(40px)";
+    item.style.transition = "all .8s ease";
+    observer.observe(item);
+});
 
+// ---------------------------
+// SMOOTH ACTIVE NAV
+// ---------------------------
+const navLinks = document.querySelectorAll("nav a");
 
-  /* ===============================
-     YEAR AUTO UPDATE
-  =============================== */
-  const year = document.getElementById("year");
-  if (year) year.textContent = new Date().getFullYear();
+navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+    });
+});
 
+// ---------------------------
+// LOADER OPTIONAL
+// ---------------------------
+window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
 });
