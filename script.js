@@ -1,211 +1,123 @@
-/* =====================================
-V11 FINAL PRO SCRIPT.JS
-Working Arrows + Slider + Search
-===================================== */
+/* ==========================================
+V13 MASTER CAREER PORTFOLIO - SCRIPT.JS
+Premium Motion + Reveal + Smooth Effects
+========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-const slider = document.getElementById("worksSlider");
-const leftBtn = document.getElementById("slideLeft");
-const rightBtn = document.getElementById("slideRight");
-const search = document.getElementById("searchInput");
+  /* ===============================
+     SMOOTH ACTIVE NAV LINK
+  =============================== */
+  const navLinks = document.querySelectorAll(".menu a");
 
-/* =============================
-ARROW BUTTONS
-============================= */
-if (slider && leftBtn && rightBtn) {
+  navLinks.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      link.style.transform = "translateY(-2px)";
+    });
 
-leftBtn.addEventListener("click", function () {
-slider.scrollBy({
-left: -420,
-behavior: "smooth"
-});
-});
+    link.addEventListener("mouseleave", () => {
+      link.style.transform = "translateY(0px)";
+    });
+  });
 
-rightBtn.addEventListener("click", function () {
-slider.scrollBy({
-left: 420,
-behavior: "smooth"
-});
-});
+  /* ===============================
+     REVEAL ANIMATION ON SCROLL
+  =============================== */
+  const revealItems = document.querySelectorAll(
+    ".hero-text,.hero-image,.card,.title-wrap,.stat-box,.center-btn"
+  );
 
-}
+  revealItems.forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(45px)";
+    el.style.transition = "all .9s ease";
+  });
 
-/* =============================
-MOUSE WHEEL SIDE SCROLL
-============================= */
-if (slider) {
+  function revealOnScroll() {
+    revealItems.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+      const trigger = window.innerHeight - 80;
 
-slider.addEventListener("wheel", function (e) {
-e.preventDefault();
-slider.scrollLeft += e.deltaY * 1.2;
-}, { passive:false });
+      if (top < trigger) {
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+      }
+    });
+  }
 
-}
+  revealOnScroll();
+  window.addEventListener("scroll", revealOnScroll);
 
-/* =============================
-DRAG TO SCROLL
-============================= */
-if (slider) {
+  /* ===============================
+     GOLD CURSOR GLOW
+  =============================== */
+  const glow = document.createElement("div");
 
-let isDown = false;
-let startX;
-let scrollLeft;
+  glow.style.position = "fixed";
+  glow.style.width = "220px";
+  glow.style.height = "220px";
+  glow.style.borderRadius = "50%";
+  glow.style.pointerEvents = "none";
+  glow.style.zIndex = "-1";
+  glow.style.filter = "blur(70px)";
+  glow.style.background =
+    "radial-gradient(circle, rgba(255,210,70,.18), transparent 70%)";
 
-slider.addEventListener("mousedown", function (e) {
-isDown = true;
-slider.style.cursor = "grabbing";
-startX = e.pageX - slider.offsetLeft;
-scrollLeft = slider.scrollLeft;
-});
+  document.body.appendChild(glow);
 
-slider.addEventListener("mouseleave", function () {
-isDown = false;
-slider.style.cursor = "grab";
-});
+  let mouseX = 0;
+  let mouseY = 0;
+  let glowX = 0;
+  let glowY = 0;
 
-slider.addEventListener("mouseup", function () {
-isDown = false;
-slider.style.cursor = "grab";
-});
+  document.addEventListener("mousemove", function (e) {
+    mouseX = e.clientX - 110;
+    mouseY = e.clientY - 110;
+  });
 
-slider.addEventListener("mousemove", function (e) {
+  function animateGlow() {
+    glowX += (mouseX - glowX) * 0.08;
+    glowY += (mouseY - glowY) * 0.08;
 
-if (!isDown) return;
+    glow.style.left = glowX + "px";
+    glow.style.top = glowY + "px";
 
-e.preventDefault();
+    requestAnimationFrame(animateGlow);
+  }
 
-const x = e.pageX - slider.offsetLeft;
-const walk = (x - startX) * 1.8;
+  animateGlow();
 
-slider.scrollLeft = scrollLeft - walk;
+  /* ===============================
+     AUTO HOVER LIFT FOR BUTTONS
+  =============================== */
+  const buttons = document.querySelectorAll(".btn");
 
-});
+  buttons.forEach(btn => {
+    btn.addEventListener("mouseenter", () => {
+      btn.style.transform = "translateY(-4px) scale(1.02)";
+    });
 
-}
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "translateY(0px) scale(1)";
+    });
+  });
 
-/* =============================
-TOUCH SWIPE
-============================= */
-if (slider) {
+  /* ===============================
+     HERO IMAGE FLOAT EFFECT
+  =============================== */
+  const heroImg = document.querySelector(".hero-image img");
 
-let touchStart = 0;
-let firstScroll = 0;
+  if (heroImg) {
+    let pos = 0;
 
-slider.addEventListener("touchstart", function (e) {
-touchStart = e.touches[0].clientX;
-firstScroll = slider.scrollLeft;
-});
+    function floatImage() {
+      pos += 0.02;
+      heroImg.style.transform =
+        "translateY(" + Math.sin(pos) * 8 + "px)";
+      requestAnimationFrame(floatImage);
+    }
 
-slider.addEventListener("touchmove", function (e) {
-const move = e.touches[0].clientX;
-const diff = move - touchStart;
-slider.scrollLeft = firstScroll - diff;
-});
-
-}
-
-/* =============================
-AUTO GLIDE
-============================= */
-if (slider) {
-
-let auto = true;
-
-slider.addEventListener("mouseenter", function () {
-auto = false;
-});
-
-slider.addEventListener("mouseleave", function () {
-auto = true;
-});
-
-function moveSlider() {
-
-if (auto) {
-
-slider.scrollLeft += 0.35;
-
-if (
-slider.scrollLeft + slider.clientWidth >=
-slider.scrollWidth - 2
-) {
-slider.scrollLeft = 0;
-}
-
-}
-
-requestAnimationFrame(moveSlider);
-}
-
-moveSlider();
-
-}
-
-/* =============================
-SEARCH FILTER
-============================= */
-if (search && slider) {
-
-search.addEventListener("input", function () {
-
-const value = search.value.toLowerCase();
-const cards = slider.querySelectorAll(".work-card");
-
-cards.forEach(function (card) {
-
-const text = card.innerText.toLowerCase();
-
-if (text.includes(value)) {
-card.style.display = "block";
-} else {
-card.style.display = "none";
-}
-
-});
-
-});
-
-}
-
-/* =============================
-GOLD CURSOR GLOW
-============================= */
-const glow = document.createElement("div");
-
-glow.style.position = "fixed";
-glow.style.width = "220px";
-glow.style.height = "220px";
-glow.style.borderRadius = "50%";
-glow.style.pointerEvents = "none";
-glow.style.zIndex = "-1";
-glow.style.filter = "blur(70px)";
-glow.style.background =
-"radial-gradient(circle, rgba(255,210,70,.18), transparent 70%)";
-
-document.body.appendChild(glow);
-
-let mx = 0;
-let my = 0;
-let gx = 0;
-let gy = 0;
-
-document.addEventListener("mousemove", function (e) {
-mx = e.clientX - 110;
-my = e.clientY - 110;
-});
-
-function animateGlow() {
-
-gx += (mx - gx) * 0.08;
-gy += (my - gy) * 0.08;
-
-glow.style.left = gx + "px";
-glow.style.top = gy + "px";
-
-requestAnimationFrame(animateGlow);
-}
-
-animateGlow();
+    floatImage();
+  }
 
 });
