@@ -1,126 +1,217 @@
-// MASTER script.js - OSAMA ZAIN
+/* ==================================
+   OSAMA ZAIN ULTRA FINAL SCRIPT
+================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
-
-  // =========================
-  // Fade In On Scroll
-  // =========================
-  const items = document.querySelectorAll(".card, .section-title, .hero h1, .hero p, .gallery img");
-
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0)";
-      }
-    });
-  }, {
-    threshold:0.15
-  });
-
-  items.forEach(item=>{
-    item.style.opacity = "0";
-    item.style.transform = "translateY(40px)";
-    item.style.transition = "all .8s ease";
-    observer.observe(item);
-  });
-
-
-  // =========================
-  // Image Popup Viewer
-  // =========================
-  const galleryImages = document.querySelectorAll(".gallery img");
-
-  if(galleryImages.length > 0){
-
-    const popup = document.createElement("div");
-    popup.id = "imgPopup";
-    popup.innerHTML = `
-      <span id="closePopup">&times;</span>
-      <img id="popupImg" src="">
-    `;
-    document.body.appendChild(popup);
-
-    popup.style.cssText = `
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background:rgba(0,0,0,.92);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:99999;
-      flex-direction:column;
-      padding:20px;
-    `;
-
-    const popupImg = popup.querySelector("#popupImg");
-    popupImg.style.cssText = `
-      max-width:90%;
-      max-height:85%;
-      border-radius:14px;
-      box-shadow:0 0 30px rgba(255,215,0,.18);
-    `;
-
-    const closeBtn = popup.querySelector("#closePopup");
-    closeBtn.style.cssText = `
-      position:absolute;
-      top:25px;
-      right:35px;
-      color:#fff;
-      font-size:42px;
-      cursor:pointer;
-      font-weight:bold;
-    `;
-
-    galleryImages.forEach(img=>{
-      img.addEventListener("click", ()=>{
-        popup.style.display = "flex";
-        popupImg.src = img.src;
-      });
-    });
-
-    closeBtn.addEventListener("click", ()=>{
-      popup.style.display = "none";
-    });
-
-    popup.addEventListener("click", (e)=>{
-      if(e.target === popup){
-        popup.style.display = "none";
-      }
-    });
-  }
-
-
-  // =========================
-  // Active Nav Link Highlight
-  // =========================
-  const links = document.querySelectorAll("nav a");
-  const page = location.pathname.split("/").pop();
-
-  links.forEach(link=>{
-    const href = link.getAttribute("href");
-    if(href === page){
-      link.classList.add("active");
+/* Fade In Animation */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
     }
   });
-
-
-  // =========================
-  // Smooth Button Hover Pulse
-  // =========================
-  const buttons = document.querySelectorAll(".btn");
-
-  buttons.forEach(btn=>{
-    btn.addEventListener("mouseenter", ()=>{
-      btn.style.transform = "scale(1.06)";
-    });
-
-    btn.addEventListener("mouseleave", ()=>{
-      btn.style.transform = "scale(1)";
-    });
-  });
-
+},{
+  threshold:0.15
 });
+
+document.querySelectorAll(".fade").forEach(el=>{
+  observer.observe(el);
+});
+
+
+/* Smooth Active Nav */
+const navLinks = document.querySelectorAll("nav a");
+
+navLinks.forEach(link=>{
+  link.addEventListener("click",()=>{
+    navLinks.forEach(a=>a.classList.remove("active"));
+    link.classList.add("active");
+  });
+});
+
+
+/* Dynamic Year */
+const yearBox = document.getElementById("year");
+if(yearBox){
+  yearBox.textContent = new Date().getFullYear();
+}
+
+
+/* Poster Image Error Fix */
+document.querySelectorAll("img").forEach(img=>{
+  img.onerror = function(){
+    this.src =
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80";
+  };
+});
+
+
+/* Video Modal Popup */
+function openVideo(url){
+
+  let old = document.getElementById("videoModal");
+  if(old) old.remove();
+
+  const modal = document.createElement("div");
+  modal.id = "videoModal";
+
+  modal.innerHTML = `
+    <div class="video-overlay">
+      <div class="video-box">
+        <span class="close-video">&times;</span>
+        <iframe src="${url}"
+        allowfullscreen
+        allow="autoplay; encrypted-media"></iframe>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  document.querySelector(".close-video").onclick = ()=>{
+    modal.remove();
+  };
+
+  modal.onclick = (e)=>{
+    if(e.target.classList.contains("video-overlay")){
+      modal.remove();
+    }
+  };
+}
+
+/* Add Click Events Automatically */
+document.querySelectorAll("[data-video]").forEach(btn=>{
+  btn.addEventListener("click",function(e){
+    e.preventDefault();
+    openVideo(this.dataset.video);
+  });
+});
+
+
+/* Modal CSS Inject */
+const style = document.createElement("style");
+style.innerHTML = `
+.video-overlay{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.88);
+ z-index:99999;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
+}
+.video-box{
+ width:100%;
+ max-width:980px;
+ position:relative;
+}
+.video-box iframe{
+ width:100%;
+ height:560px;
+ border:none;
+ border-radius:16px;
+ background:#000;
+}
+.close-video{
+ position:absolute;
+ right:-8px;
+ top:-45px;
+ color:#fff;
+ font-size:42px;
+ cursor:pointer;
+}
+@media(max-width:900px){
+ .video-box iframe{
+   height:420px;
+ }
+}
+@media(max-width:600px){
+ .video-box iframe{
+   height:240px;
+ }
+ .close-video{
+   top:-38px;
+   font-size:34px;
+ }
+}
+`;
+document.head.appendChild(style);
+
+
+/* Counter Animation */
+const counters = document.querySelectorAll(".count");
+
+function runCounter(counter){
+  const target = +counter.dataset.target;
+  let num = 0;
+  const speed = target / 100;
+
+  const update = ()=>{
+    num += speed;
+    if(num < target){
+      counter.innerText = Math.floor(num);
+      requestAnimationFrame(update);
+    }else{
+      counter.innerText = target;
+    }
+  };
+
+  update();
+}
+
+const countObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      runCounter(entry.target);
+      countObserver.unobserve(entry.target);
+    }
+  });
+});
+
+counters.forEach(counter=>{
+  countObserver.observe(counter);
+});
+
+
+/* Scroll Top Button */
+const topBtn = document.createElement("button");
+topBtn.innerHTML = "↑";
+topBtn.id = "topBtn";
+document.body.appendChild(topBtn);
+
+topBtn.style.cssText = `
+position:fixed;
+bottom:22px;
+right:22px;
+width:46px;
+height:46px;
+border:none;
+border-radius:50%;
+background:#f0c64b;
+color:#000;
+font-size:22px;
+font-weight:bold;
+cursor:pointer;
+display:none;
+z-index:9999;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+`;
+
+window.addEventListener("scroll",()=>{
+  if(window.scrollY > 400){
+    topBtn.style.display = "block";
+  }else{
+    topBtn.style.display = "none";
+  }
+});
+
+topBtn.onclick = ()=>{
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+};
+
+
+/* Console Signature */
+console.log("OSAMA ZAIN ULTRA PORTFOLIO LOADED");
