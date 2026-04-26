@@ -1,13 +1,50 @@
-<!-- portfolio.html -->
+<!-- REPLACE ONLY portfolio.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio | Osama Zain</title>
-<meta name="description" content="Projects, programs, motion graphics and awards by Osama Zain">
 <link rel="stylesheet" href="style.css">
+
+<!-- Facebook Embed SDK -->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0">
+</script>
+
+<style>
+.video-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+margin-top:40px;
+}
+.embed-box{
+background:#0f0f0f;
+padding:20px;
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+}
+.embed-box h3{
+margin-bottom:15px;
+color:#d4af37;
+font-size:20px;
+}
+iframe{
+width:100%;
+height:220px;
+border:none;
+border-radius:12px;
+}
+.fb-video,.fb-post{
+background:#111;
+border-radius:12px;
+overflow:hidden;
+}
+</style>
 </head>
+
 <body>
 
 <header class="header">
@@ -23,187 +60,71 @@
 </header>
 
 <section class="container" style="padding-top:100px;">
-<h1 class="section-title fade-up">My <span>Portfolio</span></h1>
-<p class="mini-title fade-up">Real projects, award-winning productions and creative works.</p>
+<h1 class="section-title fade-up">Embedded <span>Portfolio</span></h1>
+<p class="mini-title fade-up">Watch all projects directly inside website.</p>
 </section>
 
-<!-- FEATURED -->
 <section>
 <div class="container">
 
-<h2 class="section-title fade-up">Featured <span>Works</span></h2>
+<div class="video-grid">
 
-<div class="cards-4">
-
-<div class="card fade-up">
-<h3>🏆 Best Program</h3>
-<p>Fall 2025 • Producer & Editor</p>
-<a class="btn gold" href="https://www.youtube.com/watch?v=wW-35f6F9Ao" target="_blank">Watch</a>
+<!-- YOUTUBE -->
+<div class="embed-box fade-up">
+<h3>🏆 Best Program 2025</h3>
+<iframe src="https://www.youtube.com/embed/wW-35f6F9Ao"
+allowfullscreen></iframe>
 </div>
 
-<div class="card fade-up">
-<h3>🏆 Best Program</h3>
-<p>Fall 2024 • Producer & Editor</p>
-<a class="btn gold" href="https://www.youtube.com/watch?v=m5gN3ZcH_tM" target="_blank">Watch</a>
+<div class="embed-box fade-up">
+<h3>🏆 Best Program 2024</h3>
+<iframe src="https://www.youtube.com/embed/m5gN3ZcH_tM"
+allowfullscreen></iframe>
 </div>
 
-<div class="card fade-up">
-<h3>🎨 Best Graphic Designer</h3>
-<p>Spring 2026 • Motion Graphics</p>
-<a class="btn gold" href="https://www.facebook.com/reel/1309594364288511" target="_blank">View</a>
+<div class="embed-box fade-up">
+<h3>🎬 Digital Story</h3>
+<iframe src="https://www.youtube.com/embed/CCXp0XkctJk"
+allowfullscreen></iframe>
 </div>
 
-<div class="card fade-up">
-<h3>🎞 Best Post Production Artist</h3>
-<p>AnimeKothay</p>
-<a class="btn gold" href="https://www.facebook.com/reel/2322066501633972" target="_blank">View</a>
+<div class="embed-box fade-up">
+<h3>📰 News Production</h3>
+<iframe src="https://www.youtube.com/embed/7dzOg4ic2Nw"
+allowfullscreen></iframe>
 </div>
 
-</div>
-</div>
-</section>
-
-<!-- ULAB TV -->
-<section>
-<div class="container">
-
-<h2 class="section-title fade-up">ULAB TV <span>Programs</span></h2>
-
-<div class="cards-3">
-
-<div class="card fade-up">
-<h3>Producer & Editor</h3>
-<p>Best Program Award Winning Shows</p>
-<a class="btn dark" href="https://www.facebook.com/reel/1763591957696932" target="_blank">Facebook</a>
+<!-- FACEBOOK -->
+<div class="embed-box fade-up">
+<h3>🎨 Motion Graphics</h3>
+<div class="fb-video"
+data-href="https://www.facebook.com/reel/1309594364288511"
+data-width="auto"
+data-show-text="false"></div>
 </div>
 
-<div class="card fade-up">
-<h3>Assistant Producer</h3>
-<p>Production Management & Support</p>
-<a class="btn dark" href="https://www.facebook.com/reel/2295334750936694" target="_blank">Facebook</a>
+<div class="embed-box fade-up">
+<h3>🎞 AnimeKothay</h3>
+<div class="fb-video"
+data-href="https://www.facebook.com/reel/2322066501633972"
+data-width="auto"
+data-show-text="false"></div>
 </div>
 
-<div class="card fade-up">
-<h3>Team Collaboration</h3>
-<p>Broadcast Team Member</p>
-<a class="btn dark" href="https://www.facebook.com/reel/477368608158989" target="_blank">Facebook</a>
+<div class="embed-box fade-up">
+<h3>📺 ULAB TV Show</h3>
+<div class="fb-video"
+data-href="https://www.facebook.com/reel/1763591957696932"
+data-width="auto"
+data-show-text="false"></div>
 </div>
 
-</div>
-
-</div>
-</section>
-
-<!-- MOTION GRAPHICS -->
-<section>
-<div class="container">
-
-<h2 class="section-title fade-up">Motion <span>Graphics</span></h2>
-
-<div class="cards-4">
-
-<div class="card fade-up">
-<h3>Promo Visual</h3>
-<a class="btn dark" href="https://www.facebook.com/reel/1582739459511303" target="_blank">View</a>
-</div>
-
-<div class="card fade-up">
-<h3>Broadcast Design</h3>
-<a class="btn dark" href="https://www.facebook.com/reel/852090050594204" target="_blank">View</a>
-</div>
-
-<div class="card fade-up">
-<h3>Creative Animation</h3>
-<a class="btn dark" href="https://www.facebook.com/reel/862464553043870" target="_blank">View</a>
-</div>
-
-<div class="card fade-up">
-<h3>TV Graphics</h3>
-<a class="btn dark" href="https://www.facebook.com/reel/1367815081372928" target="_blank">View</a>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<!-- NEWS -->
-<section>
-<div class="container">
-
-<h2 class="section-title fade-up">News <span>Production</span></h2>
-
-<div class="cards-3">
-
-<div class="card fade-up">
-<h3>News Report 1</h3>
-<a class="btn gold" href="https://www.youtube.com/watch?v=7dzOg4ic2Nw" target="_blank">Watch</a>
-</div>
-
-<div class="card fade-up">
-<h3>News Report 2</h3>
-<a class="btn gold" href="https://www.youtube.com/watch?v=a0-wR1RdG64" target="_blank">Watch</a>
-</div>
-
-<div class="card fade-up">
-<h3>Digital Story</h3>
-<a class="btn gold" href="https://www.youtube.com/watch?v=CCXp0XkctJk" target="_blank">Watch</a>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<!-- ANIMEKOTHAY -->
-<section>
-<div class="container">
-
-<h2 class="section-title fade-up">AnimeKothay <span>Projects</span></h2>
-
-<div class="cards-3">
-
-<div class="card fade-up">
-<h3>Motion Graphics</h3>
-<a class="btn dark" href="https://www.facebook.com/reel/1810738146221426" target="_blank">View</a>
-</div>
-
-<div class="card fade-up">
-<h3>Motion Graphics</h3>
-<a class="btn dark" href="https://www.facebook.com/reel/951213687491994" target="_blank">View</a>
-</div>
-
-<div class="card fade-up">
-<h3>Animation Production</h3>
-<a class="btn dark" href="https://www.facebook.com/reel/2322066501633972" target="_blank">View</a>
-</div>
-
-</div>
-
-</div>
-</section>
-
-<!-- POSTERS -->
-<section>
-<div class="container">
-
-<h2 class="section-title fade-up">Poster <span>Design</span></h2>
-
-<div class="cards-3">
-
-<div class="card fade-up">
-<h3>Social Media Poster</h3>
-<p>Campaign / Event / Promotional</p>
-</div>
-
-<div class="card fade-up">
-<h3>Broadcast Poster</h3>
-<p>TV Program Branding</p>
-</div>
-
-<div class="card fade-up">
-<h3>Creative Ads</h3>
-<p>Marketing Visual Design</p>
+<div class="embed-box fade-up">
+<h3>✨ Creative Reel</h3>
+<div class="fb-video"
+data-href="https://www.facebook.com/reel/1582739459511303"
+data-width="auto"
+data-show-text="false"></div>
 </div>
 
 </div>
@@ -214,7 +135,7 @@
 <footer>
 <div class="container footer">
 <p>© 2026 OSAMA ZAIN</p>
-<p>Premium Portfolio</p>
+<p>Embedded Portfolio Showcase</p>
 </div>
 </footer>
 
