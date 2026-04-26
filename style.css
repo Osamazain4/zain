@@ -1,7 +1,7 @@
-/* =========================
-MASTER V10.4 TRUE PREMIUM
-HORIZONTAL MY WORKS
-========================= */
+/* ==================================================
+MASTER V10.5 FULL STYLE.CSS
+TRUE PREMIUM + ARROW CONTROL
+================================================== */
 
 *{
 margin:0;
@@ -11,10 +11,10 @@ scroll-behavior:smooth;
 }
 
 html,body{
-background:#050505;
-color:#fff;
-font-family:Arial,Helvetica,sans-serif;
 overflow-x:hidden;
+background:#050505;
+color:#ffffff;
+font-family:Arial,Helvetica,sans-serif;
 }
 
 /* BACKGROUND */
@@ -22,48 +22,29 @@ body::before{
 content:"";
 position:fixed;
 inset:0;
-background:
-radial-gradient(circle at 15% 20%, rgba(255,185,0,.14), transparent 28%),
-radial-gradient(circle at 80% 30%, rgba(255,170,0,.08), transparent 30%),
-radial-gradient(circle at 50% 80%, rgba(255,190,0,.08), transparent 35%),
-linear-gradient(135deg,#030303,#090909,#000);
-z-index:-3;
-}
-
-body::after{
-content:"";
-position:fixed;
-inset:0;
-background:
-linear-gradient(90deg,
-transparent 0%,
-rgba(255,190,0,.03) 25%,
-transparent 50%,
-rgba(255,190,0,.03) 75%,
-transparent 100%);
-animation:bgMove 8s linear infinite;
 z-index:-2;
+background:
+radial-gradient(circle at 15% 20%, rgba(255,210,70,.10), transparent 30%),
+radial-gradient(circle at 80% 10%, rgba(255,190,0,.06), transparent 28%),
+radial-gradient(circle at 50% 90%, rgba(255,170,0,.05), transparent 35%),
+linear-gradient(135deg,#000,#070707,#020202,#090909);
 }
 
-@keyframes bgMove{
-0%{transform:translateX(-20%)}
-100%{transform:translateX(20%)}
-}
-
-/* NAV */
-nav{
-position:sticky;
-top:0;
-z-index:999;
-background:rgba(0,0,0,.72);
-backdrop-filter:blur(14px);
-border-bottom:1px solid rgba(255,196,0,.12);
-}
-
+/* CONTAINER */
 .container{
 width:92%;
 max-width:1450px;
 margin:auto;
+}
+
+/* NAVBAR */
+nav{
+position:sticky;
+top:0;
+z-index:999;
+background:rgba(0,0,0,.75);
+backdrop-filter:blur(14px);
+border-bottom:1px solid rgba(255,210,70,.08);
 }
 
 .nav-wrap{
@@ -74,69 +55,68 @@ padding:18px 0;
 }
 
 .logo{
-font-size:38px;
+font-size:34px;
 font-weight:900;
 letter-spacing:2px;
-color:#ffd24d;
-text-shadow:0 0 18px rgba(255,210,77,.25);
+color:#ffd84d;
 }
 
 nav ul{
 display:flex;
-gap:34px;
+gap:28px;
 list-style:none;
 }
 
 nav a{
 color:#fff;
 text-decoration:none;
-font-size:15px;
 font-weight:700;
-opacity:.9;
+font-size:15px;
 transition:.3s;
 }
 
 nav a:hover{
-color:#ffd24d;
+color:#ffd84d;
 }
 
 /* HERO */
 .hero{
-padding:90px 0 70px;
 display:grid;
 grid-template-columns:1.1fr .9fr;
 gap:70px;
 align-items:center;
+padding:90px 0;
+min-height:100vh;
 }
 
 .hero-tag{
 display:inline-block;
 padding:10px 16px;
-border:1px solid rgba(255,196,0,.18);
 border-radius:40px;
+border:1px solid rgba(255,210,70,.18);
+color:#ffd84d;
 font-size:13px;
-letter-spacing:2px;
-color:#ffd24d;
+letter-spacing:1px;
 margin-bottom:22px;
 }
 
 .hero h1{
-font-size:72px;
-line-height:1.05;
+font-size:74px;
 font-weight:900;
+line-height:1.05;
 margin-bottom:18px;
 }
 
 .hero h1 span{
-color:#ffd24d;
+color:#ffd84d;
 }
 
 .hero p{
 font-size:18px;
-color:#cfcfcf;
 line-height:1.8;
+color:#c8c8c8;
 max-width:640px;
-margin-bottom:30px;
+margin-bottom:28px;
 }
 
 .btn-group{
@@ -148,20 +128,20 @@ flex-wrap:wrap;
 .btn{
 padding:15px 28px;
 border-radius:40px;
-text-decoration:none;
 font-weight:800;
+text-decoration:none;
 transition:.3s;
 display:inline-block;
 }
 
 .btn-gold{
-background:linear-gradient(90deg,#ffda57,#d9a400);
+background:linear-gradient(90deg,#ffd84d,#c79400);
 color:#111;
-box-shadow:0 10px 25px rgba(255,196,0,.18);
+box-shadow:0 0 25px rgba(255,210,70,.18);
 }
 
 .btn-dark{
-border:1px solid rgba(255,196,0,.2);
+border:1px solid rgba(255,210,70,.18);
 color:#fff;
 }
 
@@ -170,10 +150,10 @@ transform:translateY(-4px);
 }
 
 .photo-frame{
-border-radius:26px;
+border-radius:24px;
 overflow:hidden;
-border:1px solid rgba(255,196,0,.2);
-box-shadow:0 0 45px rgba(255,196,0,.14);
+border:1px solid rgba(255,210,70,.15);
+box-shadow:0 0 40px rgba(255,210,70,.08);
 }
 
 .photo-frame img{
@@ -183,7 +163,7 @@ display:block;
 
 /* SECTION */
 section{
-padding:40px 0 80px;
+padding:50px 0 90px;
 }
 
 .section-head{
@@ -193,11 +173,11 @@ margin-bottom:28px;
 .section-head h2{
 font-size:54px;
 font-weight:900;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
 .section-head h2 span{
-color:#ffd24d;
+color:#ffd84d;
 }
 
 .section-head p{
@@ -205,63 +185,32 @@ color:#bdbdbd;
 font-size:16px;
 }
 
-/* NORMAL GRID (Awards) */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:24px;
 }
 
-/* HORIZONTAL MY WORKS */
-.horizontal-wrap{
-overflow:hidden;
-position:relative;
-padding-bottom:10px;
-}
-
-.horizontal-row{
-display:flex;
-gap:24px;
-overflow-x:auto;
-padding:5px 2px 20px;
-scrollbar-width:none;
-cursor:grab;
-}
-
-.horizontal-row::-webkit-scrollbar{
-display:none;
-}
-
-.horizontal-row.active{
-cursor:grabbing;
-}
-
-.horizontal-row .card{
-min-width:340px;
-max-width:340px;
-flex:none;
-}
-
 /* CARD */
 .card{
-background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
-border:1px solid rgba(255,196,0,.1);
+background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+border:1px solid rgba(255,210,70,.08);
 border-radius:24px;
 overflow:hidden;
 transition:.35s;
-box-shadow:0 10px 30px rgba(0,0,0,.4);
+box-shadow:0 10px 28px rgba(0,0,0,.42);
 }
 
 .card:hover{
-transform:translateY(-8px) scale(1.02);
-border-color:rgba(255,196,0,.35);
-box-shadow:0 0 35px rgba(255,196,0,.15);
+transform:translateY(-8px);
+border-color:rgba(255,210,70,.22);
+box-shadow:0 0 35px rgba(255,210,70,.12);
 }
 
 .card-media{
 aspect-ratio:16/9;
 background:#000;
-overflow:hidden;
 }
 
 .card-media iframe{
@@ -276,19 +225,19 @@ padding:18px;
 
 .card-body h3{
 font-size:28px;
-font-weight:800;
 margin-bottom:8px;
+font-weight:800;
 }
 
 .card-body p{
 font-size:14px;
-color:#bdbdbd;
 line-height:1.6;
+color:#bdbdbd;
 }
 
 /* SEARCH */
 .search-box{
-margin:22px 0 30px;
+margin:24px 0 30px;
 }
 
 .search-box input{
@@ -296,10 +245,70 @@ width:100%;
 padding:18px 22px;
 border-radius:40px;
 background:#0e0e0e;
-border:1px solid rgba(255,196,0,.12);
+border:1px solid rgba(255,210,70,.10);
 color:#fff;
-font-size:15px;
 outline:none;
+font-size:15px;
+}
+
+/* =====================================
+MY WORKS HORIZONTAL
+===================================== */
+.horizontal-wrap{
+position:relative;
+overflow:hidden;
+}
+
+.horizontal-row{
+display:flex;
+gap:24px;
+overflow-x:auto;
+scrollbar-width:none;
+padding:5px 4px 20px;
+scroll-behavior:smooth;
+cursor:grab;
+}
+
+.horizontal-row::-webkit-scrollbar{
+display:none;
+}
+
+.horizontal-row .card{
+min-width:340px;
+max-width:340px;
+flex:none;
+}
+
+/* ARROWS */
+.slide-btn{
+position:absolute;
+top:42%;
+transform:translateY(-50%);
+width:56px;
+height:56px;
+border:none;
+border-radius:50%;
+cursor:pointer;
+z-index:50;
+font-size:28px;
+font-weight:900;
+color:#111;
+background:linear-gradient(135deg,#ffd84d,#c79400);
+box-shadow:0 0 25px rgba(255,210,70,.25);
+transition:.3s;
+}
+
+.slide-btn:hover{
+transform:translateY(-50%) scale(1.08);
+box-shadow:0 0 35px rgba(255,210,70,.38);
+}
+
+.slide-btn.left{
+left:-8px;
+}
+
+.slide-btn.right{
+right:-8px;
 }
 
 /* CTA */
@@ -309,28 +318,28 @@ padding:90px 0;
 }
 
 .cta h2{
-font-size:56px;
+font-size:58px;
 font-weight:900;
 margin-bottom:12px;
 }
 
 .cta h2 span{
-color:#ffd24d;
+color:#ffd84d;
 }
 
 .cta p{
+font-size:18px;
 color:#c8c8c8;
 margin-bottom:28px;
-font-size:18px;
 }
 
 /* FOOTER */
 footer{
 padding:30px 0;
 text-align:center;
-color:#8e8e8e;
+color:#888;
 font-size:14px;
-border-top:1px solid rgba(255,196,0,.08);
+border-top:1px solid rgba(255,210,70,.08);
 }
 
 /* REVEAL */
@@ -365,15 +374,11 @@ min-width:300px;
 max-width:300px;
 }
 
-.logo{
-font-size:30px;
-}
-
 nav ul{
 gap:16px;
 flex-wrap:wrap;
-justify-content:flex-end;
 }
+
 }
 
 @media(max-width:600px){
@@ -382,7 +387,12 @@ justify-content:flex-end;
 font-size:40px;
 }
 
-.section-head h2{
+.logo{
+font-size:24px;
+}
+
+.section-head h2,
+.cta h2{
 font-size:32px;
 }
 
@@ -391,11 +401,18 @@ min-width:260px;
 max-width:260px;
 }
 
-.logo{
-font-size:24px;
+.slide-btn{
+width:42px;
+height:42px;
+font-size:20px;
 }
 
-nav a{
-font-size:13px;
+.slide-btn.left{
+left:4px;
 }
+
+.slide-btn.right{
+right:4px;
+}
+
 }
