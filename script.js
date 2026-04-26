@@ -1,138 +1,123 @@
 /* ==========================================
-ABSOLUTE FINAL CINEMATIC JS SYSTEM
-OSAMA ZAIN PORTFOLIO
+V13 MASTER CAREER PORTFOLIO - SCRIPT.JS
+Premium Motion + Reveal + Smooth Effects
 ========================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-/* ===============================
-   SMOOTH SCROLL NAV
-=============================== */
+  /* ===============================
+     SMOOTH ACTIVE NAV LINK
+  =============================== */
+  const navLinks = document.querySelectorAll(".menu a");
 
-document.querySelectorAll("a[href^='#']").forEach(link => {
-link.addEventListener("click", function(e){
-e.preventDefault();
+  navLinks.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      link.style.transform = "translateY(-2px)";
+    });
 
-const target = document.querySelector(this.getAttribute("href"));
+    link.addEventListener("mouseleave", () => {
+      link.style.transform = "translateY(0px)";
+    });
+  });
 
-if(target){
-window.scrollTo({
-top: target.offsetTop - 60,
-behavior: "smooth"
-});
-}
-});
-});
+  /* ===============================
+     REVEAL ANIMATION ON SCROLL
+  =============================== */
+  const revealItems = document.querySelectorAll(
+    ".hero-text,.hero-image,.card,.title-wrap,.stat-box,.center-btn"
+  );
 
+  revealItems.forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(45px)";
+    el.style.transition = "all .9s ease";
+  });
 
-/* ===============================
-   REVEAL ON SCROLL (CINEMATIC FADE)
-=============================== */
+  function revealOnScroll() {
+    revealItems.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+      const trigger = window.innerHeight - 80;
 
-const elements = document.querySelectorAll(".hero-text, .hero-image, .card, h1, h2, p, .btn");
+      if (top < trigger) {
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+      }
+    });
+  }
 
-const observer = new IntersectionObserver((entries) => {
+  revealOnScroll();
+  window.addEventListener("scroll", revealOnScroll);
 
-entries.forEach(entry => {
-if(entry.isIntersecting){
-entry.target.style.opacity = "1";
-entry.target.style.transform = "translateY(0)";
-}
-});
+  /* ===============================
+     GOLD CURSOR GLOW
+  =============================== */
+  const glow = document.createElement("div");
 
-}, { threshold: 0.15 });
+  glow.style.position = "fixed";
+  glow.style.width = "220px";
+  glow.style.height = "220px";
+  glow.style.borderRadius = "50%";
+  glow.style.pointerEvents = "none";
+  glow.style.zIndex = "-1";
+  glow.style.filter = "blur(70px)";
+  glow.style.background =
+    "radial-gradient(circle, rgba(255,210,70,.18), transparent 70%)";
 
-elements.forEach(el => {
-el.style.opacity = "0";
-el.style.transform = "translateY(40px)";
-el.style.transition = "0.9s ease";
-observer.observe(el);
-});
+  document.body.appendChild(glow);
 
+  let mouseX = 0;
+  let mouseY = 0;
+  let glowX = 0;
+  let glowY = 0;
 
-/* ===============================
-   GOLD CURSOR GLOW EFFECT
-=============================== */
+  document.addEventListener("mousemove", function (e) {
+    mouseX = e.clientX - 110;
+    mouseY = e.clientY - 110;
+  });
 
-const glow = document.createElement("div");
+  function animateGlow() {
+    glowX += (mouseX - glowX) * 0.08;
+    glowY += (mouseY - glowY) * 0.08;
 
-Object.assign(glow.style, {
-position: "fixed",
-width: "200px",
-height: "200px",
-borderRadius: "50%",
-pointerEvents: "none",
-zIndex: "-1",
-filter: "blur(80px)",
-background: "radial-gradient(circle, rgba(255,215,80,.18), transparent 70%)",
-transform: "translate(-50%, -50%)"
-});
+    glow.style.left = glowX + "px";
+    glow.style.top = glowY + "px";
 
-document.body.appendChild(glow);
+    requestAnimationFrame(animateGlow);
+  }
 
-let mouseX = 0, mouseY = 0;
-let currentX = 0, currentY = 0;
+  animateGlow();
 
-document.addEventListener("mousemove", (e) => {
-mouseX = e.clientX;
-mouseY = e.clientY;
-});
+  /* ===============================
+     AUTO HOVER LIFT FOR BUTTONS
+  =============================== */
+  const buttons = document.querySelectorAll(".btn");
 
-function animateGlow(){
-currentX += (mouseX - currentX) * 0.08;
-currentY += (mouseY - currentY) * 0.08;
+  buttons.forEach(btn => {
+    btn.addEventListener("mouseenter", () => {
+      btn.style.transform = "translateY(-4px) scale(1.02)";
+    });
 
-glow.style.left = currentX + "px";
-glow.style.top = currentY + "px";
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "translateY(0px) scale(1)";
+    });
+  });
 
-requestAnimationFrame(animateGlow);
-}
+  /* ===============================
+     HERO IMAGE FLOAT EFFECT
+  =============================== */
+  const heroImg = document.querySelector(".hero-image img");
 
-animateGlow();
+  if (heroImg) {
+    let pos = 0;
 
+    function floatImage() {
+      pos += 0.02;
+      heroImg.style.transform =
+        "translateY(" + Math.sin(pos) * 8 + "px)";
+      requestAnimationFrame(floatImage);
+    }
 
-/* ===============================
-   BUTTON MICRO ANIMATION
-=============================== */
-
-document.querySelectorAll(".btn").forEach(btn => {
-
-btn.addEventListener("mouseenter", () => {
-btn.style.transform = "translateY(-6px) scale(1.03)";
-btn.style.boxShadow = "0 10px 30px rgba(255,215,80,.25)";
-});
-
-btn.addEventListener("mouseleave", () => {
-btn.style.transform = "translateY(0) scale(1)";
-btn.style.boxShadow = "none";
-});
-
-});
-
-
-/* ===============================
-   CARD FLOAT MOTION (SUBTLE LIVING EFFECT)
-=============================== */
-
-document.querySelectorAll(".card").forEach(card => {
-
-let t = 0;
-
-function float(){
-t += 0.01;
-card.style.transform = `translateY(${Math.sin(t) * 3}px)`;
-requestAnimationFrame(float);
-}
-
-float();
-
-});
-
-
-/* ===============================
-   LOG (OPTIONAL)
-=============================== */
-
-console.log("🔥 Osama Zain Cinematic Portfolio Loaded Successfully");
+    floatImage();
+  }
 
 });
