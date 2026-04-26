@@ -1,45 +1,343 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Osama Zain</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osama Zain | Visual Content Designer & Animator</title>
+
+<style>
+
+/* ================= MASTER STYLE ================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+font-family:Segoe UI, sans-serif;
+}
+
+body{
+background:#050505;
+color:#fff;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+body::before{
+content:"";
+position:fixed;
+inset:0;
+z-index:-1;
+background:
+radial-gradient(circle at 20% 20%, rgba(255,215,80,.12), transparent 35%),
+radial-gradient(circle at 80% 30%, rgba(255,180,0,.08), transparent 40%),
+linear-gradient(135deg,#000,#050505,#0a0a0a);
+}
+
+/* NAV */
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+position:sticky;
+top:0;
+backdrop-filter:blur(15px);
+background:rgba(0,0,0,.6);
+border-bottom:1px solid rgba(255,215,80,.08);
+}
+
+.logo{
+font-size:28px;
+font-weight:900;
+color:#ffd84d;
+letter-spacing:2px;
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:#fff;
+font-weight:600;
+transition:.3s;
+}
+
+nav a:hover{
+color:#ffd84d;
+}
+
+/* HERO */
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+padding:60px 8%;
+gap:60px;
+}
+
+.hero h1{
+font-size:72px;
+font-weight:900;
+line-height:1.05;
+}
+
+.hero h1 span{
+color:#ffd84d;
+}
+
+.hero p{
+margin:20px 0;
+color:#cfcfcf;
+max-width:600px;
+}
+
+.btn{
+display:inline-block;
+padding:14px 28px;
+border-radius:40px;
+font-weight:800;
+text-decoration:none;
+transition:.3s;
+margin-right:10px;
+}
+
+.gold{
+background:linear-gradient(90deg,#ffd84d,#c99600);
+color:#111;
+}
+
+.dark{
+border:1px solid rgba(255,215,80,.2);
+color:#fff;
+}
+
+.btn:hover{
+transform:translateY(-5px);
+}
+
+.hero img{
+width:420px;
+border-radius:20px;
+box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+
+/* SECTION */
+section{
+padding:100px 8%;
+}
+
+.title{
+font-size:48px;
+font-weight:900;
+margin-bottom:20px;
+}
+
+.title span{
+color:#ffd84d;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,215,80,.08);
+border-radius:18px;
+overflow:hidden;
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:rgba(255,215,80,.25);
+}
+
+.card iframe{
+width:100%;
+aspect-ratio:16/9;
+border:none;
+}
+
+.card img{
+width:100%;
+display:block;
+}
+
+.card-info{
+padding:15px;
+}
+
+.card-info h3{
+font-size:20px;
+font-weight:800;
+}
+
+.card-info p{
+color:#bdbdbd;
+font-size:14px;
+}
+
+/* CTA */
+.cta{
+text-align:center;
+padding:80px;
+background:rgba(255,255,255,.02);
+border-radius:20px;
+border:1px solid rgba(255,215,80,.1);
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:30px;
+color:#888;
+border-top:1px solid rgba(255,215,80,.08);
+}
+
+@media(max-width:900px){
+.hero{
+flex-direction:column;
+text-align:center;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.hero img{
+width:100%;
+}
+}
+
+</style>
+
 </head>
+
 <body>
 
-<header class="navbar">
-<div class="container nav-wrap">
-<a class="logo">OSAMA ZAIN</a>
+<!-- NAV -->
 <nav>
-<ul class="menu">
-<li><a href="index.html">Home</a></li>
-<li><a href="portfolio.html">Portfolio</a></li>
-<li><a href="experience.html">Experience</a></li>
-<li><a href="contact.html">Contact</a></li>
+<div class="logo">OSAMA ZAIN</div>
+<ul>
+<li><a href="#work">Work</a></li>
+<li><a href="#motion">Motion</a></li>
+<li><a href="#story">Story</a></li>
+<li><a href="#contact">Contact</a></li>
 </ul>
 </nav>
-</div>
-</header>
 
+<!-- HERO -->
 <section class="hero">
-<div class="container hero-grid">
+<div>
 
-<div class="hero-text">
-<h1>Visual Content <span>Designer</span> & Animator</h1>
-<p>Cinematic storytelling, motion graphics & digital production.</p>
+<h1>Visual Content <span>Designer</span><br>& Animator</h1>
 
-<a href="Osama Zain CV (3).pdf" class="btn gold">Download CV</a>
-<a href="portfolio.html" class="btn dark">View Works</a>
+<p>
+Cinematic storytelling, motion graphics, video production & digital visual experiences.
+I create premium visual content that tells powerful stories.
+</p>
+
+<a href="Osama Zain CV (3).pdf" class="btn gold" download>Download CV</a>
+<a href="#work" class="btn dark">View Work</a>
+
 </div>
 
-<div class="hero-image">
 <img src="images/hero.jpg">
+
+</section>
+
+<!-- WORK -->
+<section id="work">
+<h2 class="title">Featured <span>Works</span></h2>
+
+<div class="grid">
+
+<div class="card">
+<iframe src="https://www.youtube.com/embed/wW-35f6F9Ao"></iframe>
+<div class="card-info">
+<h3>Best Program 2025</h3>
+<p>Producer & Editor</p>
+</div>
+</div>
+
+<div class="card">
+<iframe src="https://www.youtube.com/embed/m5gN3ZcH_tM"></iframe>
+<div class="card-info">
+<h3>Best Program 2024</h3>
+<p>Broadcast Production</p>
+</div>
 </div>
 
 </div>
 </section>
 
-<footer>© 2026 Osama Zain</footer>
+<!-- MOTION -->
+<section id="motion">
+<h2 class="title">Motion <span>Graphics</span></h2>
 
-<script src="script.js"></script>
+<div class="grid">
+
+<div class="card">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1309594364288511/"></iframe>
+<div class="card-info">
+<h3>Award Motion</h3>
+<p>Best Designer 2026</p>
+</div>
+</div>
+
+<div class="card">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1582739459511303/"></iframe>
+<div class="card-info">
+<h3>Creative Motion</h3>
+<p>Animation Work</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- STORY -->
+<section id="story">
+<h2 class="title">Digital <span>Story</span></h2>
+
+<div class="grid">
+
+<div class="card">
+<iframe src="https://www.youtube.com/embed/CCXp0XkctJk"></iframe>
+<div class="card-info">
+<h3>Story Project</h3>
+<p>Cinematic Narrative</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- CTA -->
+<section>
+<div class="cta">
+<h2 class="title">Let’s Build Something <span>Cinematic</span></h2>
+<p>Freelance | Collaboration | Creative Projects</p>
+<br>
+<a href="contact.html" class="btn gold">Contact Me</a>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+© 2026 Osama Zain | Visual Content Designer & Animator
+</footer>
+
 </body>
 </html>
