@@ -7,25 +7,24 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ===============================
-     LOADER FIX
-  =============================== */
-  window.addEventListener("load", () => {
-    const loader = document.getElementById("loader");
+  /* Replace ONLY this loader section */
 
-    if (loader) {
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+
+  if (loader) {
+    setTimeout(() => {
+      loader.style.opacity = "0";
+      loader.style.pointerEvents = "none";
+      loader.style.transition = ".35s ease";
+
       setTimeout(() => {
-        loader.style.opacity = "0";
-        loader.style.pointerEvents = "none";
-        loader.style.transition = ".6s ease";
+        loader.style.display = "none";
+      }, 350);
 
-        setTimeout(() => {
-          loader.style.display = "none";
-        }, 600);
-
-      }, 1200);
-    }
-  });
-
+    }, 450);   // fast premium timing
+  }
+});
   /* ===============================
      MUSIC
   =============================== */
