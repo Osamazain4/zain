@@ -137,3 +137,118 @@ document.querySelectorAll(".section, .card").forEach(el => {
   el.style.transition = "all .8s ease";
   observer.observe(el);
 });
+/* ===============================
+V15.5 PREMIUM ANIMATION PACK
+script.js
+================================= */
+
+/* Loader */
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  if(loader){
+    setTimeout(()=>{
+      loader.style.opacity="0";
+      loader.style.pointerEvents="none";
+      setTimeout(()=>loader.remove(),700);
+    },1200);
+  }
+});
+
+/* Reveal on Scroll */
+const revealItems = document.querySelectorAll(
+".section, .card, .work-item, .poster-item, .stat-box, .hero-card"
+);
+
+function revealOnScroll(){
+  const trigger = window.innerHeight - 80;
+
+  revealItems.forEach(item=>{
+    const top = item.getBoundingClientRect().top;
+
+    if(top < trigger){
+      item.classList.add("reveal","active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
+/* Navbar Hide / Show */
+let lastScroll = 0;
+const nav = document.querySelector(".navbar");
+
+window.addEventListener("scroll", ()=>{
+
+let current = window.pageYOffset;
+
+if(nav){
+if(current > lastScroll && current > 120){
+nav.style.transform = "translateY(-100%)";
+}else{
+nav.style.transform = "translateY(0)";
+}
+}
+
+lastScroll = current;
+});
+
+/* Counter Animation */
+const counters = document.querySelectorAll(".stat-box h2");
+
+counters.forEach(counter=>{
+let started = false;
+
+function runCounter(){
+const top = counter.getBoundingClientRect().top;
+
+if(top < window.innerHeight && !started){
+
+started = true;
+
+const target = +counter.innerText.replace(/\D/g,'');
+let count = 0;
+const speed = target / 60;
+
+const update = ()=>{
+count += speed;
+
+if(count < target){
+counter.innerText = Math.floor(count) + "+";
+requestAnimationFrame(update);
+}else{
+counter.innerText = target + "+";
+}
+};
+
+update();
+}
+}
+
+window.addEventListener("scroll", runCounter);
+runCounter();
+
+});
+
+/* Mouse Glow Effect */
+document.addEventListener("mousemove",(e)=>{
+let glow = document.querySelector(".mouse-glow");
+
+if(!glow){
+glow = document.createElement("div");
+glow.className = "mouse-glow";
+document.body.appendChild(glow);
+
+glow.style.position="fixed";
+glow.style.width="18px";
+glow.style.height="18px";
+glow.style.borderRadius="50%";
+glow.style.pointerEvents="none";
+glow.style.zIndex="9999";
+glow.style.background="rgba(255,215,0,.55)";
+glow.style.filter="blur(8px)";
+}
+
+glow.style.left = e.clientX - 9 + "px";
+glow.style.top = e.clientY - 9 + "px";
+});
