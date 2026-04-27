@@ -534,3 +534,100 @@ grid-template-columns:1fr;
 height:auto;
 }
 }
+/* ===============================
+V15.5 PREMIUM ANIMATION PACK
+================================= */
+
+/* Smooth Fade Up */
+.reveal{
+opacity:0;
+transform:translateY(60px);
+transition:1s ease;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
+}
+
+/* Cards Hover Premium */
+.card,
+.work-item,
+.poster-item,
+.stat-box{
+transition:.4s ease;
+}
+
+.card:hover,
+.work-item:hover,
+.poster-item:hover,
+.stat-box:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(255,180,0,.14);
+}
+
+/* Button Glow */
+.btn{
+position:relative;
+overflow:hidden;
+}
+
+.btn::after{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:60%;
+height:100%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+transform:skewX(-25deg);
+transition:.8s;
+}
+
+.btn:hover::after{
+left:140%;
+}
+
+/* Logo pulse */
+.logo{
+animation:glowLogo 3s infinite ease-in-out;
+}
+
+@keyframes glowLogo{
+0%,100%{text-shadow:0 0 0 transparent;}
+50%{text-shadow:0 0 18px rgba(255,215,0,.45);}
+}
+
+/* Floating Hero Image */
+.hero-card{
+animation:floatHero 5s ease-in-out infinite;
+}
+
+@keyframes floatHero{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+}
+
+/* Section Title Animation */
+.title-wrap h2{
+animation:titleFade 1.2s ease;
+}
+
+@keyframes titleFade{
+from{opacity:0;transform:translateY(25px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* Scrollbar Premium */
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-track{
+background:#050505;
+}
+
+::-webkit-scrollbar-thumb{
+background:gold;
+border-radius:20px;
+}
