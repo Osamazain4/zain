@@ -1,376 +1,337 @@
 // ===============================
-// V15 ULTRA PREMIUM SCRIPT
+// OSAMA ZAIN FINAL OPTIMIZED SCRIPT
+// Loader Fixed + No Conflict + Premium Effects
+// Replace Full script.js
 // ===============================
 
-// LOADER
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
+document.addEventListener("DOMContentLoaded", () => {
 
-  setTimeout(() => {
-    loader.style.opacity = "0";
-    loader.style.pointerEvents = "none";
+  /* ===============================
+     LOADER FIX
+  =============================== */
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
 
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 700);
+    if (loader) {
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        loader.style.pointerEvents = "none";
+        loader.style.transition = ".6s ease";
 
-  }, 1400);
-});
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, 600);
 
-// MUSIC
-const music = document.getElementById("introMusic");
-const musicBtn = document.getElementById("musicToggle");
-
-let playing = false;
-
-function startMusic() {
-  if (!music) return;
-
-  music.volume = 0.35;
-
-  music.play().then(() => {
-    playing = true;
-    if (musicBtn) musicBtn.innerHTML = "🔊";
-  }).catch(() => {
-    playing = false;
-    if (musicBtn) musicBtn.innerHTML = "🔇";
+      }, 1200);
+    }
   });
-}
 
-// first interaction autoplay safe
-document.addEventListener("click", () => {
-  if (!playing) startMusic();
-}, { once:true });
+  /* ===============================
+     MUSIC
+  =============================== */
+  const music = document.getElementById("introMusic");
+  const musicBtn = document.getElementById("musicToggle");
+  let playing = false;
 
-if (musicBtn) {
-  musicBtn.addEventListener("click", () => {
+  function startMusic() {
     if (!music) return;
 
-    if (playing) {
-      music.pause();
+    music.volume = 0.35;
+
+    music.play().then(() => {
+      playing = true;
+      if (musicBtn) musicBtn.innerHTML = "🔊";
+    }).catch(() => {
       playing = false;
-      musicBtn.innerHTML = "🔇";
-    } else {
-      startMusic();
-    }
-  });
-}
-
-// WORK SLIDER
-function slideLeft() {
-  const slider = document.getElementById("workSlider");
-  if (slider) slider.scrollBy({
-    left: -450,
-    behavior: "smooth"
-  });
-}
-
-function slideRight() {
-  const slider = document.getElementById("workSlider");
-  if (slider) slider.scrollBy({
-    left: 450,
-    behavior: "smooth"
-  });
-}
-
-// AUTO SLIDE
-setInterval(() => {
-  const slider = document.getElementById("workSlider");
-
-  if (!slider) return;
-
-  const maxScroll = slider.scrollWidth - slider.clientWidth;
-
-  if (slider.scrollLeft >= maxScroll - 10) {
-    slider.scrollTo({
-      left: 0,
-      behavior: "smooth"
-    });
-  } else {
-    slider.scrollBy({
-      left: 450,
-      behavior: "smooth"
+      if (musicBtn) musicBtn.innerHTML = "🔇";
     });
   }
 
-}, 5000);
+  document.addEventListener("click", () => {
+    if (!playing) startMusic();
+  }, { once: true });
 
-// CURSOR GLOW
-const glow = document.createElement("div");
-glow.id = "cursorGlow";
+  if (musicBtn) {
+    musicBtn.addEventListener("click", () => {
+      if (!music) return;
 
-glow.style.position = "fixed";
-glow.style.width = "18px";
-glow.style.height = "18px";
-glow.style.borderRadius = "50%";
-glow.style.background = "rgba(255,215,0,.8)";
-glow.style.boxShadow = "0 0 20px rgba(255,215,0,.8)";
-glow.style.pointerEvents = "none";
-glow.style.zIndex = "99999";
-glow.style.transform = "translate(-50%, -50%)";
-document.body.appendChild(glow);
-
-document.addEventListener("mousemove", (e) => {
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
-});
-
-// FADE IN ON SCROLL
-const observer = new IntersectionObserver((entries) => {
-
-  entries.forEach(entry => {
-
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = "1";
-      entry.target.style.transform = "translateY(0)";
-    }
-
-  });
-
-}, {
-  threshold: 0.15
-});
-
-document.querySelectorAll(".section, .card").forEach(el => {
-  el.style.opacity = "0";
-  el.style.transform = "translateY(40px)";
-  el.style.transition = "all .8s ease";
-  observer.observe(el);
-});
-/* ===============================
-V15.5 PREMIUM ANIMATION PACK
-script.js
-================================= */
-
-/* Loader */
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-  if(loader){
-    setTimeout(()=>{
-      loader.style.opacity="0";
-      loader.style.pointerEvents="none";
-      setTimeout(()=>loader.remove(),700);
-    },1200);
+      if (playing) {
+        music.pause();
+        playing = false;
+        musicBtn.innerHTML = "🔇";
+      } else {
+        startMusic();
+      }
+    });
   }
-});
 
-/* Reveal on Scroll */
-const revealItems = document.querySelectorAll(
-".section, .card, .work-item, .poster-item, .stat-box, .hero-card"
-);
+  /* ===============================
+     WORK SLIDER
+  =============================== */
+  const slider = document.getElementById("workSlider");
 
-function revealOnScroll(){
-  const trigger = window.innerHeight - 80;
-
-  revealItems.forEach(item=>{
-    const top = item.getBoundingClientRect().top;
-
-    if(top < trigger){
-      item.classList.add("reveal","active");
+  window.slideLeft = function () {
+    if (slider) {
+      slider.scrollBy({ left: -450, behavior: "smooth" });
     }
+  };
+
+  window.slideRight = function () {
+    if (slider) {
+      slider.scrollBy({ left: 450, behavior: "smooth" });
+    }
+  };
+
+  if (slider) {
+    setInterval(() => {
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+      if (slider.scrollLeft >= maxScroll - 10) {
+        slider.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        slider.scrollBy({ left: 450, behavior: "smooth" });
+      }
+
+    }, 5000);
+  }
+
+  /* ===============================
+     PROGRESS BAR
+  =============================== */
+  const progressBar = document.createElement("div");
+  progressBar.id = "progressBar";
+  document.body.appendChild(progressBar);
+
+  /* ===============================
+     AMBIENT GLOW
+  =============================== */
+  const ambient = document.createElement("div");
+  ambient.id = "ambientGlow";
+  document.body.appendChild(ambient);
+
+  /* ===============================
+     CURSOR GLOW
+  =============================== */
+  const glow = document.createElement("div");
+  glow.id = "cursorGlow";
+  document.body.appendChild(glow);
+
+  glow.style.position = "fixed";
+  glow.style.width = "16px";
+  glow.style.height = "16px";
+  glow.style.borderRadius = "50%";
+  glow.style.pointerEvents = "none";
+  glow.style.zIndex = "99999";
+  glow.style.background = "rgba(255,215,0,.75)";
+  glow.style.boxShadow = "0 0 20px rgba(255,215,0,.7)";
+  glow.style.transform = "translate(-50%,-50%)";
+
+  /* ===============================
+     REVEAL ON SCROLL
+  =============================== */
+  const revealItems = document.querySelectorAll(
+    ".section, .card, .work-item, .poster-item, .stat-box, .hero-card"
+  );
+
+  revealItems.forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(40px)";
+    el.style.transition = ".8s ease";
   });
-}
 
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
+  function revealNow() {
+    revealItems.forEach(el => {
+      const top = el.getBoundingClientRect().top;
 
-/* Navbar Hide / Show */
-let lastScroll = 0;
-const nav = document.querySelector(".navbar");
+      if (top < window.innerHeight - 80) {
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+      }
+    });
+  }
 
-window.addEventListener("scroll", ()=>{
+  /* ===============================
+     COUNTERS
+  =============================== */
+  const counters = document.querySelectorAll(".stat-box h2");
 
-let current = window.pageYOffset;
+  function runCounters() {
+    counters.forEach(counter => {
 
-if(nav){
-if(current > lastScroll && current > 120){
-nav.style.transform = "translateY(-100%)";
-}else{
-nav.style.transform = "translateY(0)";
-}
-}
+      if (counter.dataset.done) return;
 
-lastScroll = current;
-});
+      const top = counter.getBoundingClientRect().top;
 
-/* Counter Animation */
-const counters = document.querySelectorAll(".stat-box h2");
+      if (top < window.innerHeight) {
 
-counters.forEach(counter=>{
-let started = false;
+        counter.dataset.done = "yes";
 
-function runCounter(){
-const top = counter.getBoundingClientRect().top;
+        const target = parseInt(counter.innerText.replace(/\D/g, ""));
+        let count = 0;
+        const speed = target / 60;
 
-if(top < window.innerHeight && !started){
+        function update() {
+          count += speed;
 
-started = true;
+          if (count < target) {
+            counter.innerText = Math.floor(count) + "+";
+            requestAnimationFrame(update);
+          } else {
+            counter.innerText = target + "+";
+          }
+        }
 
-const target = +counter.innerText.replace(/\D/g,'');
-let count = 0;
-const speed = target / 60;
+        update();
+      }
 
-const update = ()=>{
-count += speed;
+    });
+  }
 
-if(count < target){
-counter.innerText = Math.floor(count) + "+";
-requestAnimationFrame(update);
-}else{
-counter.innerText = target + "+";
-}
-};
+  /* ===============================
+     NAVBAR HIDE SHOW
+  =============================== */
+  let lastScroll = 0;
+  const nav = document.querySelector(".navbar");
 
-update();
-}
-}
+  function navbarControl() {
+    const current = window.pageYOffset;
 
-window.addEventListener("scroll", runCounter);
-runCounter();
+    if (nav) {
+      if (current > lastScroll && current > 120) {
+        nav.style.transform = "translateY(-100%)";
+      } else {
+        nav.style.transform = "translateY(0)";
+      }
+    }
 
-});
+    lastScroll = current;
+  }
 
-/* Mouse Glow Effect */
-document.addEventListener("mousemove",(e)=>{
-let glow = document.querySelector(".mouse-glow");
+  /* ===============================
+     SCROLL EVENTS
+  =============================== */
+  window.addEventListener("scroll", () => {
 
-if(!glow){
-glow = document.createElement("div");
-glow.className = "mouse-glow";
-document.body.appendChild(glow);
+    revealNow();
+    runCounters();
+    navbarControl();
 
-glow.style.position="fixed";
-glow.style.width="18px";
-glow.style.height="18px";
-glow.style.borderRadius="50%";
-glow.style.pointerEvents="none";
-glow.style.zIndex="9999";
-glow.style.background="rgba(255,215,0,.55)";
-glow.style.filter="blur(8px)";
-}
+    const scrollTop = window.scrollY;
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / height) * 100;
 
-glow.style.left = e.clientX - 9 + "px";
-glow.style.top = e.clientY - 9 + "px";
-});
-/* ===============================
-V16 GOD MODE SCRIPT
-Add at end of script.js
-================================= */
+    progressBar.style.width = progress + "%";
 
-/* Progress Bar */
-const progressBar = document.createElement("div");
-progressBar.id = "progressBar";
-document.body.appendChild(progressBar);
+  });
 
-window.addEventListener("scroll", () => {
-const scrollTop = window.scrollY;
-const height = document.documentElement.scrollHeight - window.innerHeight;
-const progress = (scrollTop / height) * 100;
-progressBar.style.width = progress + "%";
-});
+  revealNow();
+  runCounters();
 
-/* Ambient Glow */
-const glow = document.createElement("div");
-glow.id = "ambientGlow";
-document.body.appendChild(glow);
+  /* ===============================
+     CURSOR MOVE
+  =============================== */
+  document.addEventListener("mousemove", (e) => {
 
-/* Cursor Trail */
-document.addEventListener("mousemove", (e) => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
 
-const dot = document.createElement("div");
-dot.className = "cursor-dot";
-dot.style.left = e.clientX + "px";
-dot.style.top = e.clientY + "px";
+    const dot = document.createElement("div");
+    dot.className = "cursor-dot";
+    dot.style.left = e.clientX + "px";
+    dot.style.top = e.clientY + "px";
 
-document.body.appendChild(dot);
+    document.body.appendChild(dot);
 
-setTimeout(() => {
-dot.style.transition = ".4s ease";
-dot.style.opacity = "0";
-dot.style.transform = "scale(2)";
-}, 10);
+    setTimeout(() => {
+      dot.style.opacity = "0";
+      dot.style.transform = "scale(2)";
+    }, 10);
 
-setTimeout(() => {
-dot.remove();
-}, 420);
+    setTimeout(() => {
+      dot.remove();
+    }, 400);
 
-});
+  });
 
-/* Card 3D Hover */
-const cards = document.querySelectorAll(".card, .poster-item, .work-item");
+  /* ===============================
+     CARD 3D HOVER
+  =============================== */
+  document.querySelectorAll(".card, .poster-item, .work-item").forEach(card => {
 
-cards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
 
-card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
 
-const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
+      const rotateY = ((x / rect.width) - 0.5) * 12;
+      const rotateX = ((y / rect.height) - 0.5) * -12;
 
-const rotateY = ((x / rect.width) - 0.5) * 14;
-const rotateX = ((y / rect.height) - 0.5) * -14;
+      card.style.transform =
+        `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
 
-card.style.transform =
-`perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+    });
 
-});
+    card.addEventListener("mouseleave", () => {
+      card.style.transform =
+        "perspective(900px) rotateX(0) rotateY(0) translateY(0)";
+    });
 
-card.addEventListener("mouseleave", () => {
-card.style.transform =
-"perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
-});
+  });
 
-});
+  /* ===============================
+     MAGNETIC BUTTONS
+  =============================== */
+  document.querySelectorAll(".btn").forEach(btn => {
 
-/* Magnetic Buttons */
-const buttons = document.querySelectorAll(".btn");
+    btn.addEventListener("mousemove", (e) => {
 
-buttons.forEach(btn => {
+      const rect = btn.getBoundingClientRect();
 
-btn.addEventListener("mousemove", (e) => {
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
 
-const rect = btn.getBoundingClientRect();
-const x = e.clientX - rect.left - rect.width / 2;
-const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform =
+        `translate(${x * 0.18}px, ${y * 0.18}px)`;
 
-btn.style.transform =
-`translate(${x * 0.18}px, ${y * 0.18}px)`;
+    });
 
-});
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "translate(0,0)";
+    });
 
-btn.addEventListener("mouseleave", () => {
-btn.style.transform = "translate(0,0)";
-});
+  });
 
-});
+  /* ===============================
+     PAGE TRANSITION
+  =============================== */
+  document.querySelectorAll("a").forEach(link => {
 
-/* Page Transition */
-document.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", function (e) {
 
-link.addEventListener("click", function(e){
+      const href = this.getAttribute("href");
 
-const href = this.getAttribute("href");
+      if (
+        href &&
+        !href.startsWith("#") &&
+        !href.startsWith("http") &&
+        !this.hasAttribute("target")
+      ) {
 
-if(
-href &&
-!href.startsWith("#") &&
-!href.startsWith("http") &&
-!this.hasAttribute("target")
-){
+        e.preventDefault();
 
-e.preventDefault();
+        document.body.style.opacity = "0";
+        document.body.style.transform = "translateY(20px)";
+        document.body.style.transition = ".45s ease";
 
-document.body.style.opacity = "0";
-document.body.style.transform = "translateY(20px)";
-document.body.style.transition = ".45s ease";
+        setTimeout(() => {
+          window.location.href = href;
+        }, 450);
+      }
 
-setTimeout(()=>{
-window.location = href;
-},450);
+    });
 
-}
-
-});
+  });
 
 });
