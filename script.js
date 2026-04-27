@@ -252,3 +252,125 @@ glow.style.filter="blur(8px)";
 glow.style.left = e.clientX - 9 + "px";
 glow.style.top = e.clientY - 9 + "px";
 });
+/* ===============================
+V16 GOD MODE SCRIPT
+Add at end of script.js
+================================= */
+
+/* Progress Bar */
+const progressBar = document.createElement("div");
+progressBar.id = "progressBar";
+document.body.appendChild(progressBar);
+
+window.addEventListener("scroll", () => {
+const scrollTop = window.scrollY;
+const height = document.documentElement.scrollHeight - window.innerHeight;
+const progress = (scrollTop / height) * 100;
+progressBar.style.width = progress + "%";
+});
+
+/* Ambient Glow */
+const glow = document.createElement("div");
+glow.id = "ambientGlow";
+document.body.appendChild(glow);
+
+/* Cursor Trail */
+document.addEventListener("mousemove", (e) => {
+
+const dot = document.createElement("div");
+dot.className = "cursor-dot";
+dot.style.left = e.clientX + "px";
+dot.style.top = e.clientY + "px";
+
+document.body.appendChild(dot);
+
+setTimeout(() => {
+dot.style.transition = ".4s ease";
+dot.style.opacity = "0";
+dot.style.transform = "scale(2)";
+}, 10);
+
+setTimeout(() => {
+dot.remove();
+}, 420);
+
+});
+
+/* Card 3D Hover */
+const cards = document.querySelectorAll(".card, .poster-item, .work-item");
+
+cards.forEach(card => {
+
+card.addEventListener("mousemove", (e) => {
+
+const rect = card.getBoundingClientRect();
+
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+const rotateY = ((x / rect.width) - 0.5) * 14;
+const rotateX = ((y / rect.height) - 0.5) * -14;
+
+card.style.transform =
+`perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+
+});
+
+card.addEventListener("mouseleave", () => {
+card.style.transform =
+"perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
+});
+
+});
+
+/* Magnetic Buttons */
+const buttons = document.querySelectorAll(".btn");
+
+buttons.forEach(btn => {
+
+btn.addEventListener("mousemove", (e) => {
+
+const rect = btn.getBoundingClientRect();
+const x = e.clientX - rect.left - rect.width / 2;
+const y = e.clientY - rect.top - rect.height / 2;
+
+btn.style.transform =
+`translate(${x * 0.18}px, ${y * 0.18}px)`;
+
+});
+
+btn.addEventListener("mouseleave", () => {
+btn.style.transform = "translate(0,0)";
+});
+
+});
+
+/* Page Transition */
+document.querySelectorAll("a").forEach(link => {
+
+link.addEventListener("click", function(e){
+
+const href = this.getAttribute("href");
+
+if(
+href &&
+!href.startsWith("#") &&
+!href.startsWith("http") &&
+!this.hasAttribute("target")
+){
+
+e.preventDefault();
+
+document.body.style.opacity = "0";
+document.body.style.transform = "translateY(20px)";
+document.body.style.transition = ".45s ease";
+
+setTimeout(()=>{
+window.location = href;
+},450);
+
+}
+
+});
+
+});
