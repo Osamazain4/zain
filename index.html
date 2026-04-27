@@ -2,40 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Osama Zain | Premium Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osama Zain | Visual Content Designer</title>
+<meta name="description" content="Official portfolio of Osama Zain - Video Editor, Motion Graphics Designer & Animator">
 <link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- Background -->
-<div class="bg-glow"></div>
-<div class="particles" id="particles"></div>
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-ring"></div>
+  <h2>OSAMA ZAIN</h2>
+</div>
 
-<!-- Music -->
-<audio id="introMusic" autoplay loop>
-<source src="music.mp3" type="audio/mpeg">
+<!-- PARTICLES BG -->
+<div id="particles"></div>
+
+<!-- MUSIC -->
+<audio id="introMusic" loop>
+  <source src="music/soft-cinematic.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Navbar -->
-<header class="navbar">
-<div class="logo">OSAMA ZAIN</div>
+<button id="musicToggle">🔊</button>
 
-<nav>
-<a class="active" href="index.html">Home</a>
-<a href="portfolio.html">Portfolio</a>
-<a href="experience.html">Experience</a>
-<a href="contact.html">Contact</a>
-</nav>
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="container nav-wrap">
+
+    <a href="index.html" class="logo">OSAMA ZAIN</a>
+
+    <nav>
+      <ul class="menu">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+  </div>
 </header>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero">
 
-<div class="hero-left fade-up">
+<div class="container hero-wrap">
+
+<div class="hero-left">
 
 <span class="tagline">Creative Media Specialist</span>
 
@@ -43,49 +57,223 @@
 Osama <span>Zain</span>
 </h1>
 
-<h2>Visual Content Designer</h2>
+<h3>Visual Content Designer</h3>
 
 <p>
-Experienced Video Editor, Motion Graphics Designer & Animator.
-Specializing in visual storytelling, structure, motion,
-and premium content creation.
+Experienced Video Editor, Motion Graphics Designer & Animator.  
+Specializing in visual storytelling, structure, motion, and premium content creation.
 </p>
 
 <div class="hero-buttons">
-<a href="Osama Zain CV (3).pdf" class="btn gold" download>Download CV</a>
+<a href="Osama Zain CV (3).pdf" download class="btn gold">Download CV</a>
 <a href="portfolio.html" class="btn dark">View Portfolio</a>
 </div>
 
 <div class="stats">
 
 <div class="stat-box">
-<h3>4+</h3>
+<h2>4+</h2>
 <p>Awards</p>
 </div>
 
 <div class="stat-box">
-<h3>50+</h3>
+<h2>50+</h2>
 <p>Projects</p>
 </div>
 
 <div class="stat-box">
-<h3>6+</h3>
+<h2>6+</h2>
 <p>Years Experience</p>
 </div>
 
 </div>
+
 </div>
 
-<div class="hero-right fade-in">
-<div class="hero-image-wrap">
+<div class="hero-right">
+
+<div class="hero-card">
 <img src="images/hero-premium.jpg" alt="Osama Zain">
 </div>
+
+</div>
+
 </div>
 
 </section>
 
-<!-- Floating Music Button -->
-<button class="music-btn" onclick="toggleMusic()">🔊</button>
+<!-- AWARDS -->
+<section class="section">
+
+<div class="container">
+
+<div class="title-wrap">
+<h2>Award <span>Winning Works</span></h2>
+<p>Recognized creative productions & achievements</p>
+</div>
+
+<div class="grid-2">
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/wW-35f6F9Ao" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Best Program Award</h3>
+<p>Fall 2025</p>
+</div>
+</div>
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.youtube.com/embed/m5gN3ZcH_tM" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Best Program Award</h3>
+<p>Fall 2024</p>
+</div>
+</div>
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1309594364288511/" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Best Graphic Designer</h3>
+<p>Spring 2026</p>
+</div>
+</div>
+
+<div class="card">
+<div class="video-box">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/2322066501633972/" allowfullscreen></iframe>
+</div>
+<div class="card-info">
+<h3>Best Post Production</h3>
+<p>Spring 2026</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- MY WORKS -->
+<section class="section">
+
+<div class="container">
+
+<div class="title-wrap">
+<h2>My <span>Works</span></h2>
+<p>Mixed real projects preview</p>
+</div>
+
+<div class="slider-wrap">
+
+<button class="arrow left" onclick="slideLeft()">❮</button>
+
+<div class="work-slider" id="workSlider">
+
+<div class="slide-card">
+<iframe src="https://www.youtube.com/embed/CCXp0XkctJk"></iframe>
+</div>
+
+<div class="slide-card">
+<iframe src="https://www.youtube.com/embed/7dzOg4ic2Nw"></iframe>
+</div>
+
+<div class="slide-card">
+<iframe src="https://www.youtube.com/embed/a0-wR1RdG64"></iframe>
+</div>
+
+<div class="slide-card">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1810738146221426/"></iframe>
+</div>
+
+<div class="slide-card">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/951213687491994/"></iframe>
+</div>
+
+<div class="slide-card">
+<iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/852090050594204/"></iframe>
+</div>
+
+</div>
+
+<button class="arrow right" onclick="slideRight()">❯</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FIVERR -->
+<section class="section">
+
+<div class="container">
+
+<div class="title-wrap">
+<h2>Fiverr <span>Professional</span></h2>
+<p>Freelance services since 2019</p>
+</div>
+
+<div class="grid-3">
+
+<div class="card">
+<div class="card-info">
+<h3>Video Editing Gig</h3>
+<p>Professional editing service</p>
+<a href="https://www.fiverr.com/s/996wmNE" target="_blank" class="btn gold">Open Gig</a>
+</div>
+</div>
+
+<div class="card">
+<div class="card-info">
+<h3>Motion Graphics Gig</h3>
+<p>Premium animation service</p>
+<a href="https://www.fiverr.com/s/ljwYx7y" target="_blank" class="btn gold">Open Gig</a>
+</div>
+</div>
+
+<div class="card">
+<div class="card-info">
+<h3>Design Gig</h3>
+<p>Creative visual service</p>
+<a href="https://www.fiverr.com/s/qDZR2xZ" target="_blank" class="btn gold">Open Gig</a>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+<section class="section">
+
+<div class="container">
+
+<div class="cta-box">
+
+<h2>Ready To Build Something Great?</h2>
+<p>Available for freelance, remote work & collaborations.</p>
+
+<a href="contact.html" class="btn gold">Hire Me</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+© 2026 Osama Zain. All Rights Reserved.
+</footer>
 
 <script src="script.js"></script>
 </body>
